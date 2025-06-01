@@ -1,0 +1,37 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport>
+
+
+    <div class="logo-container">
+      <img src="/tallerazo_logo.png" alt="Logo" />
+    </div>
+
+    <button mat-button
+            (click)="onDashboardClick(); setActive('dashboard')"
+            [ngClass]="{'active-button': activeButton === 'dashboard'}">
+      <mat-icon>dashboard</mat-icon> Dashboard
+    </button>
+
+    <button mat-button
+            (click)="onAutoClick(); setActive('auto')"
+            [ngClass]="{'active-button': activeButton === 'auto'}">
+      <mat-icon>directions_car</mat-icon> Auto
+    </button>
+
+    <button mat-button
+            (click)="onConfiguracionClick(); setActive('config')"
+            [ngClass]="{'active-button': activeButton === 'config'}">
+      <mat-icon>settings</mat-icon> Configuración
+    </button>
+
+
+  </mat-sidenav>
+
+
+
+  <mat-sidenav-content>
+    <button mat-icon-button (click)="drawer.toggle()" aria-label="Toggle sidenav" class="toggle-button">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-sidenav-content>
+</mat-sidenav-container>

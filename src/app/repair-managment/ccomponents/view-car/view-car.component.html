@@ -1,25 +1,24 @@
 <div class="cards-container">
-  <mat-card *ngFor="let repairOrder of repairOrders" class="car-card">
+  <mat-card *ngFor="let vehicle of vehicles" class="car-card">
     <mat-card-header>
       <mat-card-title>
         N° de placa<br />
-        <span class="license-plate">{{ repairOrder.vehicle.license_plate }}</span>
+        <span class="license-plate">{{ vehicle.license_plate }}</span>
       </mat-card-title>
     </mat-card-header>
 
     <mat-card-content class="car-info">
       <span class="car-icon">🚗</span>
       <div class="car-details-grid">
-        <span>{{ repairOrder.vehicle.brand }}</span>
-        <span>{{ repairOrder.vehicle.model }}</span>
-        <span>{{ repairOrder.vehicle.fuel_type }}</span>
-        <span>{{ repairOrder.vehicle.year }}</span>
+        <span>{{ vehicle.brand }}</span>
+        <span>{{ vehicle.model }}</span>
+        <span>{{ vehicle.fuel_type }}</span>
+        <span>{{ vehicle.year }}</span>
       </div>
-
     </mat-card-content>
 
     <mat-card-actions class="actions-container">
-      <button mat-stroked-button color="primary" (click)="onStartRepair(repairOrder)">
+      <button mat-stroked-button color="primary" (click)="onStartRepair(vehicle)">
         Iniciar reparación
       </button>
     </mat-card-actions>

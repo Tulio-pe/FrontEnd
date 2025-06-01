@@ -1,7 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { RepairOrder } from '../../models/repairorder.entity';
-import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
-import { NgForOf} from '@angular/common';
+import { Vehicle } from '../../models/vehicle.entity';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
+  MatCardTitle,
+} from '@angular/material/card';
+import { NgForOf } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 
 @Component({
@@ -14,16 +20,16 @@ import { MatButton } from '@angular/material/button';
     MatCard,
     MatCardActions,
     NgForOf,
-    MatButton
+    MatButton,
   ],
   templateUrl: './view-car.component.html',
-  styleUrls: ['./view-car.component.css']
+  styleUrls: ['./view-car.component.css'],
 })
 export class ViewCarComponent {
-  @Input() repairOrders: RepairOrder[] = [];
-  @Output() startRepair = new EventEmitter<RepairOrder>();
+  @Input() vehicles: Vehicle[] = [];
+  @Output() startRepair = new EventEmitter<Vehicle>();
 
-  onStartRepair(order: RepairOrder) {
-    this.startRepair.emit(order);
+  onStartRepair(vehicle: Vehicle) {
+    this.startRepair.emit(vehicle);
   }
 }

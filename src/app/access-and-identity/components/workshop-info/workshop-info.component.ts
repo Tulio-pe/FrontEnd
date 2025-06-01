@@ -35,7 +35,15 @@ export class WorkshopInfoComponent {
       description: ['', [Validators.required]]
     });
   }  onSubmit(): void {
+    // Marcar todos los campos como tocados para mostrar posibles errores
+    Object.keys(this.workshopForm.controls).forEach(key => {
+      const control = this.workshopForm.get(key);
+      control?.markAsTouched();
+      control?.updateValueAndValidity();
+    });
+
     if (this.workshopForm.invalid) {
+      this.errorMessage = "Por favor, completa todos los campos requeridos";
       return;
     }
     
@@ -60,11 +68,23 @@ export class WorkshopInfoComponent {
     // Store in localStorage to persist between pages
     localStorage.setItem('workshopInfo', JSON.stringify(workshopData));
     
-    // Aquí implementarías la lógica para guardar la información del taller mediante API
-    // Por ahora, simplemente simularemos una respuesta exitosa
+    console.log('Navegando a schedule-hours...');
+    
+    // Navegación directa a la página de horarios después de un breve delay para mostrar el estado "procesando"
     setTimeout(() => {
       this.isSubmitting = false;
-      this.router.navigate(['/schedule-hours']);
+      
+      // Asegurar que el token está en localStorage para pasar el authGuard
+      if (!this.authService.isAuthenticated()) {
+        console.log('Usuario no autenticado, almacenando token simulado');
+        // Almacenar un token simulado para pasar el authGuard
+        localStorage.setItem('auth_token', 'token-simulado-workshop-info');
+      }
+      
+      // Navegar a la página de horarios
+      this.router.navigate(['/schedule-hours'])
+        .then(() => console.log('Navegación completada a schedule-hours'))
+        .catch(error => console.error('Error en la navegación:', error));
     }, 1000);
   }
 

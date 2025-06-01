@@ -5,7 +5,7 @@
 
 .brand-container {
   flex: 1;
-  background-color: #1e51e3; /* Cambiado a azul según la imagen */
+  background-color: #1e51e3; /* Azul según la imagen */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,7 +13,7 @@
   color: white;
   padding: 20px;
   text-align: center;
-  border-radius: 0 0 0 40px; /* Esquina redondeada como en la imagen */
+  border-radius: 0 0 0 120px; /* Esquina redondeada como en la imagen, aumentada a 120px */
 }
 
 .brand-title {
@@ -49,17 +49,16 @@
   margin-bottom: 30px;
 }
 
-.logo-placeholder {
-  width: 60px;
-  height: 60px;
+.logo-container {
   margin: 0 auto 20px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.form-header img {
-  max-width: 100%;
+.tallerazo-logo {
+  max-width: 180px;
+  height: auto;
 }
 
 .form-row {
@@ -94,6 +93,7 @@
   border-radius: 4px;
   cursor: pointer;
   margin-bottom: 15px;
+  font-weight: 500;
 }
 
 .register-btn:hover {

@@ -1,135 +1,155 @@
 .workshop-info-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 30px auto;
-  padding: 20px;
-  border: 1px solid #e1e1e1;
-  border-radius: 8px;
+  padding: 30px;
+  border: 1px solid #c7d0d8;
+  border-radius: 10px;
   background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-.title {
+.main-title {
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 5px;
+  color: #333;
 }
 
 .subtitle {
   color: #666;
   margin-bottom: 30px;
+  font-size: 0.9rem;
 }
 
 .form-row {
   display: flex;
-  gap: 20px;
-  align-items: flex-start;
+  gap: 30px;
+}
+
+.form-col {
+  flex: 1;
 }
 
 .form-group {
   margin-bottom: 20px;
-  flex: 1;
 }
 
 label {
   display: block;
+  font-size: 0.9rem;
   margin-bottom: 8px;
   font-weight: 500;
+  color: #333;
 }
 
 .form-control {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
+  border-radius: 6px;
+  font-size: 0.9rem;
 }
 
-textarea.form-control {
-  resize: vertical;
+.description-input {
   min-height: 100px;
+  resize: vertical;
 }
 
-.img-upload {
-  width: 120px;
-}
-
-.placeholder-image {
-  width: 120px;
-  height: 120px;
-  background-color: #f8f9fa;
-  border: 1px dashed #ddd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-  border-radius: 4px;
-}
-
-.placeholder-image img {
-  max-width: 30px;
-  max-height: 30px;
-}
-
-.upload-button {
-  display: inline-block;
-  font-size: 0.85rem;
-  color: #1e51e3;
-  cursor: pointer;
-  text-align: center;
-}
-
-.upload-button input[type="file"] {
-  display: none;
-}
-
-.services-list {
+.services-container {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.service-tag {
+.service-chip {
   padding: 6px 12px;
-  border: 1px solid #ddd;
+  background-color: #f5f5f5;
   border-radius: 20px;
-  background-color: white;
+  font-size: 0.85rem;
   cursor: pointer;
-  font-size: 0.9rem;
+  transition: background-color 0.2s;
 }
 
-.service-tag.selected {
-  background-color: #1e51e3;
-  color: white;
-  border-color: #1e51e3;
+.service-chip:hover {
+  background-color: #e5e5e5;
 }
 
-.service-tag.add-service {
+.service-chip.selected {
+  background-color: #e2e7ff;
   color: #1e51e3;
+  border: 1px solid #1e51e3;
 }
 
-.img-upload-large {
-  width: 100%;
+.add-service {
+  color: #1e51e3;
+  border: 1px dashed #1e51e3;
+  background-color: transparent;
 }
 
-.placeholder-image-large {
+.image-upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.image-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-placeholder {
   width: 100%;
-  height: 150px;
-  background-color: #f8f9fa;
-  border: 1px dashed #ddd;
+  height: 120px;
+  border: 1px dashed #ccc;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
-  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
 }
 
-.placeholder-image-large img {
-  max-width: 40px;
-  max-height: 40px;
+.large-upload {
+  height: 240px;
+}
+
+.placeholder-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.placeholder-icon {
+  font-size: 2rem;
+  color: #ccc;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-btn {
+  padding: 8px 16px;
+  background: none;
+  border: 1px solid #1e51e3;
+  color: #1e51e3;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .form-actions {
+  display: flex;
+  justify-content: flex-end;
   margin-top: 30px;
-  text-align: right;
 }
 
 .submit-btn {
@@ -137,7 +157,7 @@ textarea.form-control {
   background-color: #6c757d;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
 }
@@ -147,7 +167,7 @@ textarea.form-control {
 }
 
 .submit-btn:disabled {
-  background-color: #a1a8ae;
+  background-color: #ccc;
   cursor: not-allowed;
 }
 
@@ -155,4 +175,9 @@ textarea.form-control {
   color: #dc3545;
   font-size: 0.85rem;
   margin-top: 5px;
+}
+
+.global-error {
+  text-align: center;
+  margin-top: 15px;
 }

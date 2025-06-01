@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -18,16 +18,20 @@ export class WorkshopInfoComponent {
   isSubmitting = false;
   errorMessage: string | null = null;
   selectedServices: string[] = [];
+  logoPreview: string | ArrayBuffer | null = null;
+  workshopImagePreview: string | ArrayBuffer | null = null;
+
+  @ViewChild('logoFileInput') logoFileInput!: ElementRef;
+  @ViewChild('workshopImageFileInput') workshopImageFileInput!: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService
-  ) {
-    this.workshopForm = this.formBuilder.group({
+  ) {    this.workshopForm = this.formBuilder.group({
       name: ['', [Validators.required]],
-      contactEmail: ['', [Validators.required, Validators.email]],
-      contactPhone: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required]],
       description: ['', [Validators.required]]
     });
   }
@@ -62,11 +66,17 @@ export class WorkshopInfoComponent {
       this.selectedServices.push(service);
     }
   }
-
   onLogoSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedLogoFile = input.files[0];
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.logoPreview = reader.result;
+      };
+      reader.readAsDataURL(this.selectedLogoFile);
     }
   }
 
@@ -74,6 +84,37 @@ export class WorkshopInfoComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedWorkshopImage = input.files[0];
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.workshopImagePreview = reader.result;
+      };
+      reader.readAsDataURL(this.selectedWorkshopImage);
     }
+  }
+
+  triggerLogoUpload(): void {
+    const fileInput = document.getElementById('logoUpload') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
+
+  triggerWorkshopImageUpload(): void {
+    const fileInput = document.getElementById('workshopImageUpload') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
+
+  openAddServiceDialog(): void {
+    // This would be implemented with a modal or dialog
+    // For now just add a placeholder service
+    this.toggleService('Nuevo Servicio');
+  }
+
+  isServiceSelected(service: string): boolean {
+    return this.selectedServices.includes(service);
   }
 }

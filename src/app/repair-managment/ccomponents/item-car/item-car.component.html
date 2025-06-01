@@ -1,0 +1,40 @@
+<mat-card class="car-card">
+  <mat-card-header>
+    <mat-card-title>
+      N° de placa<br />
+      <span class="license-plate">{{ repairOrder.vehicle.license_plate }}</span>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="car-info">
+    <span class="car-icon">🚗</span>
+    <span class="car-details">
+      {{ repairOrder.vehicle.brand }} {{ repairOrder.vehicle.model }} {{ repairOrder.vehicle.year }}
+    </span>
+  </mat-card-content>
+
+  <mat-card-content *ngIf="repairOrder.details">
+    <div class="services">
+      <span class="service-pill" *ngFor="let detalle of repairOrder.details.split(',')">
+        {{ detalle.trim() }}
+      </span>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions *ngIf="mostrarBoton" class="actions-container">
+    <button mat-stroked-button color="primary" [matMenuTriggerFor]="statusMenu">
+      Estado: {{ repairOrder.status }} 🔄
+    </button>
+
+    <mat-menu #statusMenu="matMenu">
+      <button
+        mat-menu-item
+        *ngFor="let estado of estados"
+        (click)="seleccionarEstado(estado)"
+        [disabled]="estado === repairOrder.status"
+      >
+        {{ estado }}
+      </button>
+    </mat-menu>
+  </mat-card-actions>
+</mat-card>

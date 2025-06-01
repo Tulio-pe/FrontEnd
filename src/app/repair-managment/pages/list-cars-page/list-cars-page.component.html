@@ -1,0 +1,65 @@
+<app-side-navegation-bar>
+<h1>Autos</h1>
+<span>Listado de autos</span>
+<h2>Actualiza la información de tu taller que verán los clientes</h2>
+
+<div class="page-container">
+
+  <button mat-raised-button color="primary" (click)="toggleForm()">
+    {{ showForm ? 'Cancelar' : 'Agregar auto' }}
+  </button>
+
+  <form *ngIf="showForm" [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="vehicle-form">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Vehicle ID</mat-label>
+      <input matInput formControlName="vehicleId" type="number" />
+      <mat-error *ngIf="vehicleForm.controls['vehicleId'].hasError('required')">Vehicle ID is required</mat-error>
+      <mat-error *ngIf="vehicleForm.controls['vehicleId'].hasError('min')">Vehicle ID must be positive</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>License Plate</mat-label>
+      <input matInput formControlName="license_plate" />
+      <mat-error *ngIf="vehicleForm.controls['license_plate'].hasError('required')">License plate is required</mat-error>
+      <mat-error *ngIf="vehicleForm.controls['license_plate'].hasError('pattern')">Invalid license plate format</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Brand</mat-label>
+      <input matInput formControlName="brand" />
+      <mat-error *ngIf="vehicleForm.controls['brand'].hasError('required')">Brand is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Model</mat-label>
+      <input matInput formControlName="model" />
+      <mat-error *ngIf="vehicleForm.controls['model'].hasError('required')">Model is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Year</mat-label>
+      <input matInput formControlName="year" type="number" />
+      <mat-error *ngIf="vehicleForm.controls['year'].hasError('required')">Year is required</mat-error>
+      <mat-error *ngIf="vehicleForm.controls['year'].hasError('min')">Year too old</mat-error>
+      <mat-error *ngIf="vehicleForm.controls['year'].hasError('max')">Year too far in future</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Fuel Type</mat-label>
+      <input matInput formControlName="fuel_type" />
+      <mat-error *ngIf="vehicleForm.controls['fuel_type'].hasError('required')">Fuel type is required</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="vehicleForm.invalid">
+      Guardar vehículo
+    </button>
+  </form>
+
+  <app-view-car [vehicles]="vehicles"></app-view-car>
+
+  <div *ngIf="loading">Loading vehicles...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+</div>
+</app-side-navegation-bar>

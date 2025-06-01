@@ -1,4 +1,4 @@
-const VALID_STATUSES = ['Por revisar', 'En revisión', 'Revisado', 'Entregado'] as const;
+export const VALID_STATUSES = ['Por revisar', 'En revisión', 'Revisado', 'Entregado'] as const;
 export type StatusType = typeof VALID_STATUSES[number];
 
 import { Vehicle } from './vehicle.entity';

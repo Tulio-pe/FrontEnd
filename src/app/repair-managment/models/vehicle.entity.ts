@@ -54,6 +54,7 @@ export class Vehicle {
     model: string,
     year: number,
     fuel_type: string
+
   ) {
     if (vehicleId <= 0) throw new Error("Vehicle ID must be a positive number.");
     if (!license_plate || !/^[A-Z0-9-]{5,8}$/i.test(license_plate))

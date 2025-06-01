@@ -9,8 +9,7 @@ import { RepairOrder, StatusType } from '../models/repairorder.entity';
 })
 export class RepairService {
   /** Base URL for the repairs API endpoint */
-  private baseUrl = '/api/repairs';
-
+  private baseUrl = 'http://localhost:3000/repairs';
   /** HTTP options with JSON content type headers */
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

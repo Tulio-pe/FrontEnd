@@ -1,157 +1,47 @@
 <div class="dashboard-container">
-  <div class="dashboard-header">
-    <h1 class="dashboard-title">Panel de Control - Tallerazo</h1>
-    <div class="user-info">
-      <span class="user-name">{{ userData?.name || 'Usuario' }}</span>
-      <button class="logout-btn" (click)="logout()">Cerrar Sesión</button>
-    </div>
-  </div>
+  <h1 class="dashboard-title">Dashboard</h1>
   
-  @if (workshopInfo) {
-    <div class="dashboard-section">
-      <h2 class="section-title">Información del Taller</h2>
-      <div class="info-row">
-        <span class="info-label">Nombre:</span>
-        <span class="info-value">{{ workshopInfo.name }}</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Email:</span>
-        <span class="info-value">{{ workshopInfo.email }}</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Teléfono:</span>
-        <span class="info-value">{{ workshopInfo.phone }}</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Descripción:</span>
-        <span class="info-value">{{ workshopInfo.description }}</span>
-      </div>
-      @if (workshopInfo.services && workshopInfo.services.length > 0) {
-        <div class="info-row">
-          <span class="info-label">Servicios:</span>
-          <span class="info-value">{{ workshopInfo.services.join(', ') }}</span>
+  <div class="repair-status-section">
+    <h2 class="section-title">Estados de reparación</h2>
+    <p class="section-description">Actualiza la información de tu taller que verán los clientes</p>
+    
+    <div class="status-filters">
+      <button class="filter-btn" [class.active]="currentFilter === 'porRevisar'" (click)="filterRepairs('porRevisar')">Por revisar</button>
+      <button class="filter-btn" [class.active]="currentFilter === 'enRevision'" (click)="filterRepairs('enRevision')">En revisión</button>
+      <button class="filter-btn" [class.active]="currentFilter === 'revisado'" (click)="filterRepairs('revisado')">Revisado</button>
+      <button class="filter-btn" [class.active]="currentFilter === 'entregado'" (click)="filterRepairs('entregado')">Entregado</button>
+    </div>
+    
+    <div class="repair-cards">
+      @for (repair of filteredRepairs; track repair.id) {
+        <div class="repair-card">
+          <h3 class="plate-number">N° de placa</h3>
+          <div class="car-info">
+            <span class="car-model">{{ repair.brand }} {{ repair.model }} ({{ repair.year }})</span>
+          </div>
+          <div class="services-section">
+            <p class="services-label">Servicios:</p>
+            <div class="services-tags">
+              @for (service of repair.services; track $index) {
+                <span class="service-tag">{{ service }}</span>
+              }
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="change-status-btn" (click)="changeStatus(repair)">
+              Cambiar estado <span class="refresh-icon">⟳</span>
+            </button>
+          </div>
+        </div>
+      } @empty {
+        <div class="no-repairs">
+          No hay reparaciones en este estado.
         </div>
       }
     </div>
-  } @else {
-    <div class="dashboard-section">
-      <h2 class="section-title">Información del Taller</h2>
-      <p>Aún no has completado la información de tu taller.</p>
+    
+    <div class="create-repair-section">
+      <button class="create-repair-btn" (click)="createNewRepair()">Crear reparación</button>
     </div>
-  }
-  
-  @if (workshopSchedule) {
-    <div class="dashboard-section">
-      <h2 class="section-title">Horario de Atención</h2>
-      <div class="schedule-grid">
-        <div class="day-label">Lunes</div>
-        <div class="day-hours">
-          @if (workshopSchedule.monday?.active) {
-            @if (workshopSchedule.monday.allDay) {
-              {{ workshopSchedule.monday.hours[0].start }} - {{ workshopSchedule.monday.hours[0].end }}
-            } @else {
-              Mañana: {{ workshopSchedule.monday.hours[0].start }} - {{ workshopSchedule.monday.hours[0].end }}<br>
-              Tarde: {{ workshopSchedule.monday.hours[1].start }} - {{ workshopSchedule.monday.hours[1].end }}
-            }
-          } @else {
-            <span class="inactive-day">No disponible</span>
-          }
-        </div>
-        
-        <div class="day-label">Martes</div>
-        <div class="day-hours">
-          @if (workshopSchedule.tuesday?.active) {
-            @if (workshopSchedule.tuesday.allDay) {
-              {{ workshopSchedule.tuesday.hours[0].start }} - {{ workshopSchedule.tuesday.hours[0].end }}
-            } @else {
-              Mañana: {{ workshopSchedule.tuesday.hours[0].start }} - {{ workshopSchedule.tuesday.hours[0].end }}<br>
-              Tarde: {{ workshopSchedule.tuesday.hours[1].start }} - {{ workshopSchedule.tuesday.hours[1].end }}
-            }
-          } @else {
-            <span class="inactive-day">No disponible</span>
-          }
-        </div>
-        
-        <div class="day-label">Miércoles</div>
-        <div class="day-hours">
-          @if (workshopSchedule.wednesday?.active) {
-            @if (workshopSchedule.wednesday.allDay) {
-              {{ workshopSchedule.wednesday.hours[0].start }} - {{ workshopSchedule.wednesday.hours[0].end }}
-            } @else {
-              Mañana: {{ workshopSchedule.wednesday.hours[0].start }} - {{ workshopSchedule.wednesday.hours[0].end }}<br>
-              Tarde: {{ workshopSchedule.wednesday.hours[1].start }} - {{ workshopSchedule.wednesday.hours[1].end }}
-            }
-          } @else {
-            <span class="inactive-day">No disponible</span>
-          }
-        </div>
-        
-        <div class="day-label">Jueves</div>
-        <div class="day-hours">
-          @if (workshopSchedule.thursday?.active) {
-            @if (workshopSchedule.thursday.allDay) {
-              {{ workshopSchedule.thursday.hours[0].start }} - {{ workshopSchedule.thursday.hours[0].end }}
-            } @else {
-              Mañana: {{ workshopSchedule.thursday.hours[0].start }} - {{ workshopSchedule.thursday.hours[0].end }}<br>
-              Tarde: {{ workshopSchedule.thursday.hours[1].start }} - {{ workshopSchedule.thursday.hours[1].end }}
-            }
-          } @else {
-            <span class="inactive-day">No disponible</span>
-          }
-        </div>
-        
-        <div class="day-label">Viernes</div>
-        <div class="day-hours">
-          @if (workshopSchedule.friday?.active) {
-            @if (workshopSchedule.friday.allDay) {
-              {{ workshopSchedule.friday.hours[0].start }} - {{ workshopSchedule.friday.hours[0].end }}
-            } @else {
-              Mañana: {{ workshopSchedule.friday.hours[0].start }} - {{ workshopSchedule.friday.hours[0].end }}<br>
-              Tarde: {{ workshopSchedule.friday.hours[1].start }} - {{ workshopSchedule.friday.hours[1].end }}
-            }
-          } @else {
-            <span class="inactive-day">No disponible</span>
-          }
-        </div>
-        
-        <div class="day-label">Sábado</div>
-        <div class="day-hours">
-          @if (workshopSchedule.saturday?.active) {
-            @if (workshopSchedule.saturday.allDay) {
-              {{ workshopSchedule.saturday.hours[0].start }} - {{ workshopSchedule.saturday.hours[0].end }}
-            } @else {
-              Mañana: {{ workshopSchedule.saturday.hours[0].start }} - {{ workshopSchedule.saturday.hours[0].end }}<br>
-              Tarde: {{ workshopSchedule.saturday.hours[1].start }} - {{ workshopSchedule.saturday.hours[1].end }}
-            }
-          } @else {
-            <span class="inactive-day">No disponible</span>
-          }
-        </div>
-        
-        <div class="day-label">Domingo</div>
-        <div class="day-hours">
-          @if (workshopSchedule.sunday?.active) {
-            @if (workshopSchedule.sunday.allDay) {
-              {{ workshopSchedule.sunday.hours[0].start }} - {{ workshopSchedule.sunday.hours[0].end }}
-            } @else {
-              Mañana: {{ workshopSchedule.sunday.hours[0].start }} - {{ workshopSchedule.sunday.hours[0].end }}<br>
-              Tarde: {{ workshopSchedule.sunday.hours[1].start }} - {{ workshopSchedule.sunday.hours[1].end }}
-            }
-          } @else {
-            <span class="inactive-day">No disponible</span>
-          }
-        </div>
-      </div>
-    </div>
-  } @else {
-    <div class="dashboard-section">
-      <h2 class="section-title">Horario de Atención</h2>
-      <p>Aún no has configurado tu horario de atención.</p>
-    </div>
-  }
-  
-  <div class="edit-links">
-    <a routerLink="/workshop-info" class="edit-btn">Editar Información</a>
-    <a routerLink="/schedule-hours" class="edit-btn">Editar Horario</a>
   </div>
 </div>

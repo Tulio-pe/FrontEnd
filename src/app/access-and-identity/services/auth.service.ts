@@ -88,6 +88,26 @@ export class AuthService {
     return localStorage.getItem(this.tokenKey);
   }
 
+  saveScheduleHours(scheduleData: any): Observable<any> {
+    // Simulation for development
+    return new Observable<any>(observer => {
+      setTimeout(() => {
+        // Store in localStorage to simulate backend persistence
+        localStorage.setItem('workshopSchedule', JSON.stringify(scheduleData));
+        observer.next({ success: true, message: 'Schedule saved successfully' });
+        observer.complete();
+      }, 800);
+    });
+    
+    // Uncomment this code when you have a real backend:
+    /*
+    return this.http.post<any>(`${this.apiUrl}/workshop/schedule`, scheduleData)
+      .pipe(
+        tap(response => console.log('Schedule saved', response))
+      );
+    */
+  }
+
   private handleAuthentication(authResponse: AuthResponse): void {
     const user: User = {
       id: authResponse.user.id,

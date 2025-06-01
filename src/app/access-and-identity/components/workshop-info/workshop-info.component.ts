@@ -34,9 +34,7 @@ export class WorkshopInfoComponent {
       phone: ['', [Validators.required]],
       description: ['', [Validators.required]]
     });
-  }
-
-  onSubmit(): void {
+  }  onSubmit(): void {
     if (this.workshopForm.invalid) {
       return;
     }
@@ -44,18 +42,29 @@ export class WorkshopInfoComponent {
     this.isSubmitting = true;
     this.errorMessage = null;
     
+    // Prepare workshop data object with form values and selected services
     const workshopData = {
       ...this.workshopForm.value,
       services: this.selectedServices
     };
     
-    // Aquí implementarías la lógica para guardar la información del taller
-    // Esto podría incluir una llamada a una API a través de un servicio
+    // Add logo and workshop image if available
+    if (this.logoPreview) {
+      workshopData.logoImage = this.logoPreview;
+    }
     
+    if (this.workshopImagePreview) {
+      workshopData.workshopImage = this.workshopImagePreview;
+    }
+    
+    // Store in localStorage to persist between pages
+    localStorage.setItem('workshopInfo', JSON.stringify(workshopData));
+    
+    // Aquí implementarías la lógica para guardar la información del taller mediante API
     // Por ahora, simplemente simularemos una respuesta exitosa
     setTimeout(() => {
       this.isSubmitting = false;
-      this.router.navigate(['/home']);
+      this.router.navigate(['/schedule-hours']);
     }, 1000);
   }
 

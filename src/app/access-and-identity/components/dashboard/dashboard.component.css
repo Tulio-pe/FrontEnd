@@ -1,0 +1,130 @@
+.dashboard-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dashboard-title {
+  color: #1a365d;
+  font-size: 1.75rem;
+  margin: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-name {
+  margin-right: 20px;
+  font-weight: 500;
+}
+
+.logout-btn {
+  padding: 8px 16px;
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: #e2e8f0;
+}
+
+.dashboard-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #f8fafc;
+}
+
+.section-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #334155;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.info-label {
+  width: 150px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.info-value {
+  flex: 1;
+  color: #334155;
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.day-label {
+  font-weight: 500;
+  color: #334155;
+  padding: 10px;
+  background-color: #e2e8f0;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.day-hours {
+  padding: 10px;
+  background-color: #f1f5f9;
+  border-radius: 6px;
+}
+
+.inactive-day {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.edit-links {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.edit-btn {
+  display: inline-block;
+  margin-right: 15px;
+  padding: 10px 20px;
+  background-color: #0066cc;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.edit-btn:hover {
+  background-color: #0055b3;
+}

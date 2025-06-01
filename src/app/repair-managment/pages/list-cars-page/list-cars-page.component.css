@@ -1,0 +1,8 @@
+h1, h2, span {
+  text-align: center;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 10px;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+}

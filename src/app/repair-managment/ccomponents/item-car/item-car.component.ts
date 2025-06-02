@@ -19,7 +19,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatMenuModule,
     NgForOf
   ],
-  templateUrl: './item-car.component.html',
+  templateUrl:'item-car.component.html',
   styleUrls: ['./item-car.component.css']
 })
 export class ItemAutoComponent {

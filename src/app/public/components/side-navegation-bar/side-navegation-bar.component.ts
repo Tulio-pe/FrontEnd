@@ -4,6 +4,7 @@ import {MatIcon} from '@angular/material/icon';
 import {NgClass} from '@angular/common';
 @Component({
   selector: 'app-side-navegation-bar',
+  standalone: true,
   imports: [
     MatSidenavContent,
 

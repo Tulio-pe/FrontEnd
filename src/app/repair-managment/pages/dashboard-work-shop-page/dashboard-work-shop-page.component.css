@@ -6,28 +6,27 @@ h1, h2, span {
   padding: 0 10px;
   font-size: clamp(1rem, 3vw, 1.5rem);
 }
-/* Contenedor principal de las cards */
+
 .repair-orders-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* centra horizontalmente las cards */
-  gap: 16px; /* espacio entre cards */
+  justify-content: center;
+  gap: 16px;
   padding: 16px 0;
 }
 
-/* Cada card */
+
 app-item-auto {
-  flex: 1 1 300px; /* ancho mínimo 300px, crece y se encoge */
-  max-width: 350px; /* no se expande demasiado */
+  flex: 1 1 300px;
+  max-width: 350px;
   box-sizing: border-box;
 }
 
-/* Opcional: para que el scroll no se corte */
+
 .repair-orders-list {
   overflow-x: auto;
 }
 
-/* Responsivo: en pantallas pequeñas, ocupa casi todo el ancho */
 @media (max-width: 480px) {
   app-item-auto {
     flex-basis: 100%;

@@ -1,0 +1,66 @@
+<app-side-navegation-bar>
+
+<h1>Dashboard </h1>
+  <h2>Estados de reparación</h2>
+
+<span>Listado de reparaciones</span>
+
+<button mat-raised-button color="primary" (click)="toggleForm()">
+  {{ showForm ? 'Cancelar' : 'Registrar nueva reparación' }}
+</button>
+
+<form *ngIf="showForm" [formGroup]="repairForm" (ngSubmit)="onSubmit()" class="repair-form">
+
+  <mat-form-field appearance="fill">
+    <mat-label>License Plate</mat-label>
+    <input matInput formControlName="license_plate" />
+    <mat-error *ngIf="repairForm.controls['license_plate'].hasError('required')">License plate is required</mat-error>
+    <mat-error *ngIf="repairForm.controls['license_plate'].hasError('pattern')">Invalid license plate format</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Details</mat-label>
+    <input matInput formControlName="details" />
+    <mat-error *ngIf="repairForm.controls['details'].hasError('required')">Details are required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Workshop Assigned</mat-label>
+    <input matInput formControlName="workshopAssigned" />
+    <mat-error *ngIf="repairForm.controls['workshopAssigned'].hasError('required')">Workshop Assigned is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="status">
+      <mat-option *ngFor="let status of VALID_STATUSES" [value]="status">
+        {{ status }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="repairForm.invalid">
+    Registrar reparación
+  </button>
+</form>
+
+<div class="filter-container">
+  <label for="filter">Filtrar por estado:</label>
+  <select id="filter" (change)="onFilterChange($any($event.target).value)">
+    <option value="all">Todos</option>
+    <option *ngFor="let status of VALID_STATUSES" [value]="status">{{ status }}</option>
+  </select>
+</div>
+
+<div class="repair-orders-list">
+  <app-item-auto
+    *ngFor="let order of filteredOrders"
+    [repairOrder]="order"
+    (toggleEstado)="onStatusToggle($event)"
+  >
+  </app-item-auto>
+</div>
+
+<div *ngIf="loading">Loading repair orders...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+</app-side-navegation-bar>

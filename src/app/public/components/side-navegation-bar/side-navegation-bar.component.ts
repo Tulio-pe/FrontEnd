@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {MatIcon} from '@angular/material/icon';
 import {NgClass} from '@angular/common';
+import {MatButton, MatIconButton} from '@angular/material/button';
 @Component({
   selector: 'app-side-navegation-bar',
+  standalone: true,
   imports: [
     MatSidenavContent,
 
@@ -11,6 +13,9 @@ import {NgClass} from '@angular/common';
     MatSidenavContainer,
     MatIcon,
     NgClass,
+    MatButton,
+    MatIconButton,
+
 
   ],
   templateUrl: './side-navegation-bar.component.html',

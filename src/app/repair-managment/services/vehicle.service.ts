@@ -34,4 +34,9 @@ export class VehicleService {
     console.error('Server error:', error);
     return throwError(() => new Error('Error communicating with backend'));
   }
+
+  getByLicensePlate(plate: string): Observable<Vehicle[]> {
+    const url = `${this.baseUrl}?license_plate=${encodeURIComponent(plate)}`;
+    return this.http.get<Vehicle[]>(url);
+  }
 }

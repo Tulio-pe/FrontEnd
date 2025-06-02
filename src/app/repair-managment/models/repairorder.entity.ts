@@ -4,12 +4,11 @@ export type StatusType = typeof VALID_STATUSES[number];
 import { Vehicle } from './vehicle.entity';
 
 export class RepairOrder {
-  private _id: string;
-  private _status!: StatusType;  // <-- operador !
-
-  private _details: string;
-  private _workshopAssigned: string;
-  private _vehicle: Vehicle;
+  public id: string;
+  private _status!: StatusType;
+  public details: string;
+  public workshopAssigned: string;
+  public vehicle: Vehicle;
 
   constructor(
     id: string,
@@ -18,30 +17,30 @@ export class RepairOrder {
     workshopAssigned: string,
     vehicle: Vehicle
   ) {
-    this._id = id;
-    this.status = status; // setter
-    this._details = details;
-    this._workshopAssigned = workshopAssigned;
-    this._vehicle = vehicle;
+    this.id = id;
+    this.status = status;  // usa el setter para validar
+    this.details = details;
+    this.workshopAssigned = workshopAssigned;
+    this.vehicle = vehicle;
   }
 
-  public get id(): string { return this._id; }
-  public get status(): StatusType { return this._status; }
-  public get details(): string { return this._details; }
-  public get workshopAssigned(): string { return this._workshopAssigned; }
-  public get vehicle(): Vehicle { return this._vehicle; }
-  public get vehicle_plate(): string {
-    return this._vehicle.license_plate;
+  public get status(): StatusType {
+    return this._status;
   }
-  public get model():string { return this._vehicle.model; }
 
   public set status(value: StatusType) {
     if (!VALID_STATUSES.includes(value)) {
-      throw new Error(`Estado inválido: ${value}`);
+      throw new Error(`Invalid status: ${value}`);
     }
     this._status = value;
   }
-
-  public set details(value: string) { this._details = value; }
-  public set workshopAssigned(value: string) { this._workshopAssigned = value; }
+  public toJSON() {
+    return {
+      id: this.id,
+      status: this._status,           // Aquí expones 'status' (no '_status')
+      details: this.details,
+      workshopAssigned: this.workshopAssigned,
+      vehicle: this.vehicle
+    };
+  }
 }

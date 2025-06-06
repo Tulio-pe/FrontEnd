@@ -6,7 +6,18 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styles: [
+    `
+:host {
+  display: block;
+  height: 100vh;
+}
+.app-container {
+  min-height: 100vh;
+  background-color: #f9f9fb;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}`
+  ]
 })
 export class AppComponent {
   title = 'Tallerazo';

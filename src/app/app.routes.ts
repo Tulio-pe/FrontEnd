@@ -10,8 +10,8 @@ export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'workshop-info', component: WorkshopInfoComponent, canActivate: [authGuard] },
-  { path: 'schedule-hours', component: ScheduleHoursPage, canActivate: [authGuard] },
-  { path: 'dashboard', component: DashboardPage, canActivate: [authGuard] },
+  { path: 'workshop-info', component: WorkshopInfoComponent, /*canActivate: [authGuard] */},
+  { path: 'schedule-hours', component: ScheduleHoursPage, /*canActivate: [authGuard] */},
+  { path: 'dashboard', component: DashboardPage,/* canActivate: [authGuard]*/ },
   { path: '**', redirectTo: '/login' }
 ];

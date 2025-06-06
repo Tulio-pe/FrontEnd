@@ -9,3 +9,91 @@ import { authGuard } from './access-and-identity/services/auth.guard';
 */
 
 export const routes: Routes = [];
+/*Add commentMore actions
+export const routes: Routes = [Add commentMore actions
+  {
+    path: 'workshop',
+    children: [
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./features/auth/pages/login.page').then(m => m.LoginPage)
+      },
+      {
+        path: 'register',
+        loadComponent: () =>
+          import('./features/auth/pages/register.page').then(m => m.RegisterPage)
+      },
+      {
+        path: 'onboarding/info',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+          import('./features/workshop/pages/onboarding-info.page').then(m => m.OnboardingInfoPage)
+      },
+      {
+        path: 'onboarding/schedule',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+          import('./features/workshop/pages/onboarding-schedule.page').then(m => m.OnboardingSchedulePage)
+      },
+      {
+        path: 'dashboard',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+          import('./features/workshop/pages/dashboard.page').then(m => m.DashboardPage)
+      },
+      {
+        path: 'cars',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+          import('./features/workshop/pages/cars.page').then(m => m.CarsPage)
+      },
+      {
+        path: 'configuration',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+          import('./features/workshop/pages/configuration.page').then(m => m.ConfigurationPage)
+      },
+    ]
+  },
+  {
+    path: 'workshops',
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./features/public/pages/workshop-list.page').then(m => m.WorkshopListPage)
+      },
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./features/public/pages/workshop-details.page').then(m => m.WorkshopDetailsPage)
+      },
+    ]
+  },
+  {
+    path: 'tracking',
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./features/public/pages/tracking-input.page').then(m => m.TrackingInputPage)
+      },
+      {
+        path: ':code',
+        loadComponent: () =>
+          import('./features/public/pages/tracking-details.page').then(m => m.TrackingDetailsPage)
+      },
+    ]
+  },
+  {
+    path: '',
+    redirectTo: AppRoutes.WORKSHOP.LOGIN,
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: AppRoutes.PUBLIC.WORKSHOP_LIST
+  }
+];
+*/

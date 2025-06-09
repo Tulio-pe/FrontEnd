@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RepairOrder, VALID_STATUSES, StatusType } from '../../models/repairorder.entity';
 import { RepairService } from '../../services/repair.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ItemAutoComponent } from '../../ccomponents/item-car/item-car.component';
+import { ItemAutoComponent } from '../../components/item-car/item-car.component';
 import { NgIf, NgForOf } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';

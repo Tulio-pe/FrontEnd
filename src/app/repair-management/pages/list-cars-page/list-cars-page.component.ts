@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VehicleService } from '../../services/vehicle.service';
 import { Vehicle } from '../../models/vehicle.entity';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ViewCarComponent } from '../../ccomponents/view-car/view-car.component';
+import { ViewCarComponent } from '../../components/view-car/view-car.component';
 import { NgIf } from '@angular/common';
 
 

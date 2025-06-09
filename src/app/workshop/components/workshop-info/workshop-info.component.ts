@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../access-and-identity/services/auth.service';
 
 @Component({
   selector: 'app-workshop-info',
@@ -46,41 +46,41 @@ export class WorkshopInfoComponent {
       this.errorMessage = "Por favor, completa todos los campos requeridos";
       return;
     }
-    
+
     this.isSubmitting = true;
     this.errorMessage = null;
-    
+
     // Prepare workshop data object with form values and selected services
     const workshopData = {
       ...this.workshopForm.value,
       services: this.selectedServices
     };
-    
+
     // Add logo and workshop image if available
     if (this.logoPreview) {
       workshopData.logoImage = this.logoPreview;
     }
-    
+
     if (this.workshopImagePreview) {
       workshopData.workshopImage = this.workshopImagePreview;
     }
-    
+
     // Store in localStorage to persist between pages
     localStorage.setItem('workshopInfo', JSON.stringify(workshopData));
-    
+
     console.log('Navegando a schedule-hours...');
-    
+
     // Navegación directa a la página de horarios después de un breve delay para mostrar el estado "procesando"
     setTimeout(() => {
       this.isSubmitting = false;
-      
+
       // Asegurar que el token está en localStorage para pasar el authGuard
       if (!this.authService.isAuthenticated()) {
         console.log('Usuario no autenticado, almacenando token simulado');
         // Almacenar un token simulado para pasar el authGuard
         localStorage.setItem('auth_token', 'token-simulado-workshop-info');
       }
-      
+
       // Navegar a la página de horarios
       this.router.navigate(['/schedule-hours'])
         .then(() => console.log('Navegación completada a schedule-hours'))
@@ -99,7 +99,7 @@ export class WorkshopInfoComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedLogoFile = input.files[0];
-      
+
       // Create preview
       const reader = new FileReader();
       reader.onload = () => {
@@ -113,7 +113,7 @@ export class WorkshopInfoComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedWorkshopImage = input.files[0];
-      
+
       // Create preview
       const reader = new FileReader();
       reader.onload = () => {

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule } from '@angul
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../access-and-identity/services/auth.service';
 
 interface Day {
   name: string;
@@ -63,17 +63,17 @@ export class ScheduleHoursComponent implements OnInit {
       alert('Por favor, selecciona al menos un día de atención');
       return;
     }
-    
+
     this.isSubmitting = true;
-    
+
     // Prepare data to send to API
     const scheduleData = this.days.reduce((obj, day) => {
       if (day.enabled) {
         obj[day.name] = {
           active: true,
           allDay: day.workingAllDay,
-          hours: day.workingAllDay 
-            ? [{start: day.morningStart, end: day.afternoonEnd}] 
+          hours: day.workingAllDay
+            ? [{start: day.morningStart, end: day.afternoonEnd}]
             : [{start: day.morningStart, end: day.morningEnd}, {start: day.afternoonStart, end: day.afternoonEnd}]
         };
       } else {
@@ -81,13 +81,13 @@ export class ScheduleHoursComponent implements OnInit {
       }
       return obj;
     }, {} as Record<string, any>);
-    
+
     // Add this to local storage to simulate storing in the backend
     localStorage.setItem('workshopSchedule', JSON.stringify(scheduleData));
-    
+
     // Here you would call a service to save the schedule data
     console.log('Schedule data to save:', scheduleData);
-    
+
     // Simulate API call to auth service
     this.authService.saveScheduleHours(scheduleData).subscribe({
       next: (response) => {

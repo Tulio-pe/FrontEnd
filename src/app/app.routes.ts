@@ -8,7 +8,53 @@ import { DashboardPage } from './access-and-identity/pages/dashboard.page';
 import { authGuard } from './access-and-identity/services/auth.guard';
 */
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  {
+    path: "workshop",
+    children: [
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./access-and-identity/pages/login.page').then(m => m.LoginPage)
+      },
+      {
+        path: 'register',
+        loadComponent: () =>
+          import('./access-and-identity/pages/register.page').then(m => m.RegisterPage)
+      },
+      {
+        path: 'onboarding/info',
+        /*canActivate: [AuthGuard],*/
+        loadComponent: () =>
+          import('./workshop/pages/workshop-info.page').then(m => m.WorkshopInfoPage)
+      },
+      {
+        path: 'onboarding/schedule',
+        /*canActivate: [AuthGuard],*/
+        loadComponent: () =>
+          import('./workshop/pages/schedule-hours.page').then(m => m.ScheduleHoursPage)
+      },
+      {
+        path: 'dashboard',
+        /*canActivate: [AuthGuard],*/
+        loadComponent: () =>
+          import('./repair-management/pages/dashboard.page').then(m => m.DashboardPage)
+      },
+      {
+        path: 'cars',
+        /*canActivate: [AuthGuard],*/
+        loadComponent: () =>
+          import('./repair-management/pages/list-cars-page/list-cars-page.component').then(m => m.ListCarsPageComponent)
+      },
+    /*{
+       path: 'configuration',
+     canActivate: [AuthGuard],
+        loadComponent: () =>
+          import('./repair-management/pages/dashboard-work-shop-page/dashboard-work-shop-page.component').then(m => m.DashboardWorkShopPageComponent)
+      },*/
+    ]
+  },
+];
 /*Add commentMore actions
 export const routes: Routes = [Add commentMore actions
   {

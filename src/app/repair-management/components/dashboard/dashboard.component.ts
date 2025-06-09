@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../access-and-identity/services/auth.service';
 
 interface RepairService {
   name: string;
@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
   workshopInfo: any = null;
   workshopSchedule: any = null;
   userData: any = null;
-  
+
   repairs: Repair[] = [];
   filteredRepairs: Repair[] = [];
   currentFilter: 'porRevisar' | 'enRevision' | 'revisado' | 'entregado' = 'porRevisar';
@@ -38,12 +38,12 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     // Get workshop data from localStorage (simulating API calls)
     this.loadWorkshopData();
-    
+
     // Subscribe to user data from auth service
     this.authService.currentUser$.subscribe(user => {
       this.userData = user;
     });
-    
+
     // Load mock repair data
     this.loadMockRepairs();
     this.filterRepairs('porRevisar');
@@ -54,13 +54,13 @@ export class DashboardComponent implements OnInit {
     if (scheduleData) {
       this.workshopSchedule = JSON.parse(scheduleData);
     }
-    
+
     const workshopData = localStorage.getItem('workshopInfo');
     if (workshopData) {
       this.workshopInfo = JSON.parse(workshopData);
     }
   }
-  
+
   loadMockRepairs(): void {
     this.repairs = [
       {
@@ -101,26 +101,26 @@ export class DashboardComponent implements OnInit {
       }
     ];
   }
-  
+
   filterRepairs(status: 'porRevisar' | 'enRevision' | 'revisado' | 'entregado'): void {
     this.currentFilter = status;
     this.filteredRepairs = this.repairs.filter(repair => repair.status === status);
   }
-  
+
   changeStatus(repair: Repair): void {
     // Simple status rotation logic
     const statuses: ('porRevisar' | 'enRevision' | 'revisado' | 'entregado')[] = [
       'porRevisar', 'enRevision', 'revisado', 'entregado'
     ];
-    
+
     const currentIndex = statuses.indexOf(repair.status);
     const nextIndex = (currentIndex + 1) % statuses.length;
     repair.status = statuses[nextIndex];
-    
+
     // Re-apply filter to update view
     this.filterRepairs(this.currentFilter);
   }
-  
+
   createNewRepair(): void {
     // Here you would typically navigate to a form or open a modal
     console.log('Creating new repair...');

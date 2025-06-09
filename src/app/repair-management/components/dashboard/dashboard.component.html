@@ -1,17 +1,15 @@
-<div class="dashboard-container">
-  <h1 class="dashboard-title">Dashboard</h1>
-  
+
   <div class="repair-status-section">
     <h2 class="section-title">Estados de reparación</h2>
     <p class="section-description">Actualiza la información de tu taller que verán los clientes</p>
-    
+
     <div class="status-filters">
       <button class="filter-btn" [class.active]="currentFilter === 'porRevisar'" (click)="filterRepairs('porRevisar')">Por revisar</button>
       <button class="filter-btn" [class.active]="currentFilter === 'enRevision'" (click)="filterRepairs('enRevision')">En revisión</button>
       <button class="filter-btn" [class.active]="currentFilter === 'revisado'" (click)="filterRepairs('revisado')">Revisado</button>
       <button class="filter-btn" [class.active]="currentFilter === 'entregado'" (click)="filterRepairs('entregado')">Entregado</button>
     </div>
-    
+
     <div class="repair-cards">
       @for (repair of filteredRepairs; track repair.id) {
         <div class="repair-card">
@@ -39,9 +37,9 @@
         </div>
       }
     </div>
-    
+
     <div class="create-repair-section">
       <button class="create-repair-btn" (click)="createNewRepair()">Crear reparación</button>
     </div>
   </div>
-</div>
+

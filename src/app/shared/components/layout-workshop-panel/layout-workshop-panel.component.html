@@ -1,2 +1,48 @@
-<p>layout-workshop-panel works!</p>
-<router-outlet/>
+<mat-sidenav-container>
+  <mat-sidenav  #drawer opened mode="side" class="workshop-layout-sidebar">
+    <div class="sidenav">
+      <!-- Botón cerrar -->
+      <button class="button-close" mat-icon-button (click)="drawer.close()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <img src="./assets/img/tallerazo-icon-large.png" alt="">
+      <mat-nav-list>
+        <div>
+          <a mat-list-item *ngFor="let item of menuItems()" [routerLink]="item.route">
+            <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+            <span matListItemTitle>{{item.label}}</span>
+          </a>
+        </div>
+        <a mat-list-item class="sidebar-profile">
+          <mat-icon matListItemIcon>logout</mat-icon>
+          <span matListItemTitle>Salir</span>
+        </a>
+      </mat-nav-list>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- Botón hamburguesa: sólo aparece si el sidenav está cerrado -->
+  <main class="content">
+    <header>
+      <div>
+        <button
+          mat-icon-button
+          *ngIf="!drawer.opened"
+          class="toggle-button"
+          (click)="drawer.open()"
+          aria-label="Abrir menú">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <h1 class="workshop-layout-title">Dashboard</h1>
+      </div>
+      <div>
+        <button>
+          EN|ES
+        </button>
+        <button>Perfil</button>
+      </div>
+    </header>
+      <router-outlet/>
+  </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

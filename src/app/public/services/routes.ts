@@ -5,9 +5,9 @@ export const AppRoutes = {
     REGISTER: 'workshop/register',
     ONBOARDING_INFO: 'workshop/onboarding/info',
     ONBOARDING_SCHEDULE: 'workshop/onboarding/schedule',
-    DASHBOARD: 'workshop/dashboard',
-    CARS: 'workshop/cars',
-    CONFIG: 'workshop/configuration',
+    DASHBOARD: 'dashboard',
+    CARS: 'cars',
+    CONFIG: 'configuration',
   },
   PUBLIC: {
     WORKSHOP_LIST: 'workshops',

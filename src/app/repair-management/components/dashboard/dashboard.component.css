@@ -1,18 +1,3 @@
-.dashboard-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-}
-
-.dashboard-title {
-  font-size: 32px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 30px;
-}
-
 .repair-status-section {
   background-color: #fff;
   border-radius: 8px;

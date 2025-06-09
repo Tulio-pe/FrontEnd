@@ -1,13 +1,4 @@
 import { Routes } from '@angular/router';
-/*
-import { LoginComponent } from './access-and-identity/components/login/login.component';
-import { RegisterComponent } from './access-and-identity/components/register/register.component';
-import { WorkshopInfoComponent } from './access-and-identity/components/workshop-info/workshop-info.component';
-import { ScheduleHoursPage } from './access-and-identity/pages/schedule-hours.page';
-import { DashboardPage } from './access-and-identity/pages/dashboard.page';
-import { authGuard } from './access-and-identity/services/auth.guard';
-*/
-
 export const routes: Routes = [
   {
     path: "workshop",
@@ -61,6 +52,45 @@ export const routes: Routes = [
       },*/
     ]
   },
+  {
+    path: '',
+    /*loadComponent: () =>
+      import('./shared/layouts/main-layout/main-layout.component')
+        .then(m => m.MainLayoutComponent),*/
+    children: [
+      // Al navegar a “/” redirige a /workshops
+      { path: '', pathMatch: 'full', redirectTo: 'workshops' },
+
+      // LISTADO DE WORKSHOPS
+      {
+        path: 'workshops',
+       /* loadComponent: () =>
+          import('./workshops/pages/list-workshops.page')
+            .then(m => m.ListWorkshopsPage)*/
+      },
+      {
+        path: 'workshops/:id',
+        /*loadComponent: () =>
+          import('./workshops/pages/workshop-detail.page')
+            .then(m => m.WorkshopDetailPage)*/
+      },
+
+      // CAR-TRACKING
+      {
+        path: 'car-tracking',
+        /*loadComponent: () =>
+          import('./car-tracking/pages/list-car-tracking.page')
+            .then(m => m.ListCarTrackingPage)*/
+      },
+      {
+        path: 'car-tracking/:code',
+        /*loadComponent: () =>
+          import('./car-tracking/pages/car-tracking-detail.page')
+            .then(m => m.CarTrackingDetailPage)*/
+      },
+    ]
+  },
+  { path: '**', redirectTo: '' }
 ];
 /*Add commentMore actions
 export const routes: Routes = [Add commentMore actions

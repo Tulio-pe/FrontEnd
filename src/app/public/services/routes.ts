@@ -12,7 +12,7 @@ export const AppRoutes = {
   PUBLIC: {
     WORKSHOP_LIST: 'workshops',
     WORKSHOP_DETAILS: 'workshops/:id',
-    TRACKING_INPUT: 'tracking',
-    TRACKING_DETAILS: 'tracking/:code',
+    TRACKING_INPUT: 'car-tracking',
+    TRACKING_DETAILS: 'car-tracking/:code',
   }
 };

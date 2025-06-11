@@ -64,19 +64,17 @@ export const routes: Routes = [
           import("./workshop-discovery/pages/workshop-detail/workshop-detail.page").then((m) => m.default),
       },
 
-      // CAR-TRACKING - Rutas temporalmente deshabilitadas hasta implementar los componentes
-      // {
-      //   path: 'car-tracking',
-      //   loadComponent: () =>
-      //     import('./car-tracking/pages/list-car-tracking.page')
-      //       .then(m => m.ListCarTrackingPage)
-      // },
-      // {
-      //   path: 'car-tracking/:code',
-      //   loadComponent: () =>
-      //     import('./car-tracking/pages/car-tracking-detail.page')
-      //       .then(m => m.CarTrackingDetailPage)
-      // },
+      // VEHICLE TRACKING
+      {
+        path: "vehicle-tracking",
+        loadComponent: () =>
+          import("./vehicle-tracking/pages/tracking-input/tracking-input.page").then((m) => m.default),
+      },
+      {
+        path: "vehicle-tracking/:code",
+        loadComponent: () =>
+          import("./vehicle-tracking/pages/tracking-detail/tracking-detail.page").then((m) => m.default),
+      },
     ],
   },
   { path: "**", redirectTo: "" },

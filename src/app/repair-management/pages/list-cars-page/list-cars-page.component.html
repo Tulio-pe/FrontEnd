@@ -1,14 +1,10 @@
-<app-side-navegation-bar>
-<h1>Autos</h1>
 <span>Listado de autos</span>
 <h2>Actualiza la información de tu taller que verán los clientes</h2>
 
 <div class="page-container">
-
   <button mat-raised-button color="primary" (click)="toggleForm()">
     {{ showForm ? 'Cancelar' : 'Agregar auto' }}
   </button>
-
   <form *ngIf="showForm" [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="vehicle-form">
 
     <mat-form-field appearance="fill">
@@ -62,4 +58,3 @@
   <div *ngIf="error" class="error">{{ error }}</div>
 
 </div>
-</app-side-navegation-bar>

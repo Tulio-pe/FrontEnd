@@ -64,3 +64,12 @@ mat-nav-list{
     align-items: center;
   }
 }
+
+.active-button {
+  background-color: #1D4ED8;
+  color: #fff;
+  border: 1px solid rgb(0, 1, 213);
+  * {
+    color: white;
+  };
+}

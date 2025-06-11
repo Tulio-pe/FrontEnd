@@ -1,5 +1,5 @@
 import {Component, signal} from '@angular/core';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {MatSidenav, MatSidenavContainer, MatSidenavModule} from '@angular/material/sidenav';
 import {MatListItem, MatListItemIcon, MatListItemTitle, MatNavList} from '@angular/material/list';
 import {MatIcon} from '@angular/material/icon';
@@ -29,6 +29,7 @@ export type MenuItem = {
     MatIconButton,
     NgIf,
     MatSidenavModule,
+    RouterLinkActive,
   ],
   templateUrl: './layout-workshop-panel.component.html',
   styleUrl: './layout-workshop-panel.component.css'

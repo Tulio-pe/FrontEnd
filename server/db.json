@@ -39,6 +39,15 @@
       "model": "Corolla",
       "year": 2015,
       "fuel_type": "Gasoline"
+    },
+    {
+      "vehicleId": 123,
+      "license_plate": "123123",
+      "brand": "asdasd",
+      "model": "asdasdasd",
+      "year": 2025,
+      "fuel_type": "asdasd",
+      "id": 6
     }
   ],
   "repairs": [

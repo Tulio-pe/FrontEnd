@@ -9,7 +9,6 @@ import { NgIf } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import {SideNavegationBarComponent} from '../../../public/components/side-navegation-bar/side-navegation-bar.component';
 
 @Component({
   selector: 'app-list-cars-page',
@@ -23,7 +22,6 @@ import {SideNavegationBarComponent} from '../../../public/components/side-navega
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    SideNavegationBarComponent,
   ],
 })
 export class ListCarsPageComponent implements OnInit {

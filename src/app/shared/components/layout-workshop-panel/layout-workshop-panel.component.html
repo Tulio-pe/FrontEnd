@@ -8,7 +8,7 @@
       <img src="./assets/img/tallerazo-icon-large.png" alt="">
       <mat-nav-list>
         <div>
-          <a mat-list-item *ngFor="let item of menuItems()" [routerLink]="item.route">
+          <a mat-list-item [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-button" *ngFor="let item of menuItems()" [routerLink]="item.route">
             <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
             <span matListItemTitle>{{item.label}}</span>
           </a>

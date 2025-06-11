@@ -1,12 +1,12 @@
-<span>Listado de autos</span>
-<h2>Actualiza la información de tu taller que verán los clientes</h2>
-
-<div class="page-container">
-  <button mat-raised-button color="primary" (click)="toggleForm()">
-    {{ showForm ? 'Cancelar' : 'Agregar auto' }}
-  </button>
+<div class="repair-status-section">
+  <h2 class="section-title">Listado de autos</h2>
+  <p class="section-description">Administra todos los autos de tus clientes</p>
+  <div class="create-car-section">
+    <button class="create-car-btn" (click)="toggleForm()">
+      {{ showForm ? 'Cancelar' : 'Agregar auto' }}
+    </button>
+  </div>
   <form *ngIf="showForm" [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="vehicle-form">
-
     <mat-form-field appearance="fill">
       <mat-label>Vehicle ID</mat-label>
       <input matInput formControlName="vehicleId" type="number" />

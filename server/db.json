@@ -48,6 +48,15 @@
       "year": 2025,
       "fuel_type": "asdasd",
       "id": 6
+    },
+    {
+      "vehicleId": 123,
+      "license_plate": "zszcxzxc",
+      "brand": "zczxc",
+      "model": "zxczxczxc",
+      "year": 2025,
+      "fuel_type": "xczxczx",
+      "id": 7
     }
   ],
   "repairs": [

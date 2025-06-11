@@ -44,6 +44,11 @@ export const routes: Routes = [
             loadComponent: () =>
               import('./repair-management/pages/list-cars-page/list-cars-page.component').then(m => m.ListCarsPageComponent)
           },
+          {
+            path: AppRoutes.WORKSHOP.CONFIG,
+            loadComponent: ()=>
+              import("./workshop/pages/configuration-page/configuration-page.component").then(m=>m.ConfigurationPageComponent)
+          }
         ]
       },
     /*{

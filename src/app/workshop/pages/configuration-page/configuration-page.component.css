@@ -1,0 +1,16 @@
+.pill-toggle-group{
+  width: 100%;
+  border:0;
+  *{
+    width: 50%;
+  }
+  /* Oculta el check predeterminado de mat-button-toggle */
+
+}
+
+
+.container-section {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+}

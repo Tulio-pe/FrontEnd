@@ -17,9 +17,16 @@
   font-size: 14px;
 }
 
+.section-navigation{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
 .status-filters {
   display: flex;
   gap: 8px;
+  width: fit-content;
   margin-bottom: 20px;
   background-color: #f5f5f5;
   padding: 10px;

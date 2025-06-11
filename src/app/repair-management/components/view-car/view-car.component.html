@@ -2,23 +2,37 @@
   <mat-card *ngFor="let vehicle of vehicles" class="car-card">
     <mat-card-header>
       <mat-card-title>
-        N° de placa<br />
-        <span class="license-plate">{{ vehicle.license_plate }}</span>
+        {{ vehicle.license_plate }}
       </mat-card-title>
+      <mat-card-subtitle>
+        Código:
+      </mat-card-subtitle>
     </mat-card-header>
 
-    <mat-card-content class="car-info">
-      <span class="car-icon">🚗</span>
-      <div class="car-details-grid">
-        <span>{{ vehicle.brand }}</span>
-        <span>{{ vehicle.model }}</span>
-        <span>{{ vehicle.fuel_type }}</span>
-        <span>{{ vehicle.year }}</span>
+    <mat-card-content>
+      <div class="info-grid">
+        <div class="info-item">
+          <mat-icon class="primary">alt_route</mat-icon>
+          <span class="label">{{ vehicle.model }}</span>
+        </div>
+        <div class="info-item">
+          <mat-icon class="primary">shield</mat-icon>
+          <span class="label">{{ vehicle.brand }}</span>
+        </div>
+        <div class="info-item">
+          <mat-icon class="primary">event</mat-icon>
+          <span class="label">{{ vehicle.year }}</span>
+        </div>
+        <div class="info-item">
+          <mat-icon class="primary">local_gas_station</mat-icon>
+          <span class="label">{{ vehicle.fuel_type }}</span>
+        </div>
       </div>
     </mat-card-content>
 
-    <mat-card-actions class="actions-container">
-      <button mat-stroked-button color="primary" (click)="onStartRepair(vehicle)">
+    <mat-card-actions>
+      <button mat-stroked-button color="primary" class="action-button">
+        <mat-icon>play_arrow</mat-icon>
         Iniciar reparación
       </button>
     </mat-card-actions>

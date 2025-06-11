@@ -1,8 +1,39 @@
-h1, h2, span {
-  text-align: center;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0 10px;
-  font-size: clamp(1rem, 3vw, 1.5rem);
+.repair-status-section {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.section-description {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.create-car-section {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.create-car-btn {
+  padding: 10px 20px;
+  background-color: #0050e6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.create-repair-btn:hover {
+  background-color: #0040b8;
 }

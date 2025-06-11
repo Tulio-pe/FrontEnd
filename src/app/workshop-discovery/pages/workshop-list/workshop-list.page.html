@@ -1,0 +1,26 @@
+<div class="workshop-list-container">
+  <app-main-header [showBackButton]="false"></app-main-header>
+
+  <main class="main-content">
+    <app-workshop-filters (filtersChange)="onFiltersChange($event)"></app-workshop-filters>
+
+    <div class="workshops-grid" *ngIf="!loading; else loadingTemplate">
+      <app-workshop-card
+        *ngFor="let workshop of workshops"
+        [workshop]="workshop">
+      </app-workshop-card>
+    </div>
+
+    <ng-template #loadingTemplate>
+      <div class="loading-container">
+        <mat-spinner color="primary"></mat-spinner>
+        <p class="loading-text">{{ translate('loading') }}</p>
+      </div>
+    </ng-template>
+
+    <div class="no-results" *ngIf="workshops.length === 0 && !loading">
+      <mat-icon class="no-results-icon">search_off</mat-icon>
+      <p>{{ translate('no.results') }}</p>
+    </div>
+  </main>
+</div>

@@ -16,16 +16,23 @@ export const routes: Routes = [
           import('./access-and-identity/pages/register.page').then(m => m.RegisterPage)
       },
       {
-        path: AppRoutes.WORKSHOP.ONBOARDING_INFO,
-        /*canActivate: [AuthGuard],*/
+        path: AppRoutes.WORKSHOP.ONBOARDING.ROOT,
         loadComponent: () =>
-          import('./workshop/pages/workshop-info.page').then(m => m.WorkshopInfoPage)
-      },
-      {
-        path: AppRoutes.WORKSHOP.ONBOARDING_SCHEDULE,
-        /*canActivate: [AuthGuard],*/
-        loadComponent: () =>
-          import('./workshop/pages/schedule-hours.page').then(m => m.ScheduleHoursPage)
+          import('./shared/components/layout-workshop-onboarding/layout-workshop-onboarding.component').then(m => m.LayoutWorkshopOnboardingComponent),
+        children: [
+          {
+            path: AppRoutes.WORKSHOP.ONBOARDING.INFO,
+            /*canActivate: [AuthGuard],*/
+            loadComponent: () =>
+              import('./workshop/pages/onboarding-workshop-info-page/onboarding-workshop-info-page.component').then(m => m.OnboardingWorkshopInfoPageComponent)
+          },
+          {
+            path: AppRoutes.WORKSHOP.ONBOARDING.SCHEDULE,
+            /*canActivate: [AuthGuard],*/
+            loadComponent: () =>
+              import('./workshop/pages/onboarding-schedule-page/onboarding-schedule-page.component').then(m => m.OnboardingSchedulePageComponent)
+          },
+        ]
       },
       {
         path: "",

@@ -3,8 +3,11 @@ export const AppRoutes = {
     ROOT: 'workshop',
     LOGIN: 'login',
     REGISTER: 'register',
-    ONBOARDING_INFO: 'onboarding/info',
-    ONBOARDING_SCHEDULE: 'onboarding/schedule',
+    ONBOARDING:{
+      ROOT: 'onboarding',
+      INFO: 'info',
+      SCHEDULE: 'schedule',
+    },
     DASHBOARD: 'dashboard',
     CARS: 'cars',
     CONFIG: 'configuration',

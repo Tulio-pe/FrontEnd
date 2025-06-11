@@ -1,0 +1,130 @@
+{
+  "vehicles": [
+    {
+      "id": 1,
+      "license_plate": "ABC-123",
+      "brand": "Toyota",
+      "model": "Corolla",
+      "year": 2015,
+      "fuel_type": "Gasoline"
+    },
+    {
+      "id": 2,
+      "license_plate": "XYZ-789",
+      "brand": "Ford",
+      "model": "Mustang",
+      "year": 2018,
+      "fuel_type": "Gasoline"
+    },
+    {
+      "id": 3,
+      "license_plate": "ZYZ-999",
+      "brand": "Ford",
+      "model": "Mustang",
+      "year": 2014,
+      "fuel_type": "Gasoline"
+    },
+    {
+      "id": 4,
+      "license_plate": "PRZ-129",
+      "brand": "Ford",
+      "model": "Mustang",
+      "year": 2011,
+      "fuel_type": "Gasoline"
+    },
+    {
+      "id": 5,
+      "license_plate": "ZRE-143",
+      "brand": "Toyota",
+      "model": "Corolla",
+      "year": 2015,
+      "fuel_type": "Gasoline"
+    }
+  ],
+  "repairs": [
+    {
+      "id": "r1",
+      "status": "Entregado",
+      "details": "Cambio de aceite, revisión frenos",
+      "workshopAssigned": "Taller Central",
+      "vehicle": {
+        "id": 1,
+        "license_plate": "ABC-123",
+        "brand": "Toyota",
+        "model": "Corolla",
+        "year": 2015,
+        "fuel_type": "Gasoline"
+      }
+    },
+    {
+      "id": "r2",
+      "status": "Entregado",
+      "details": "Cambio de pastillas de freno",
+      "workshopAssigned": "Taller Norte",
+      "vehicle": {
+        "id": 2,
+        "license_plate": "XYZ-789",
+        "brand": "Ford",
+        "model": "Mustang",
+        "year": 2018,
+        "fuel_type": "Gasoline"
+      }
+    },
+    {
+      "id": "1748815709657",
+      "status": "Entregado",
+      "details": "Prueba",
+      "workshopAssigned": "Tulio Peru",
+      "vehicle": {
+        "id": 4,
+        "license_plate": "PRZ-129",
+        "brand": "Ford",
+        "model": "Mustang",
+        "year": 2011,
+        "fuel_type": "Gasoline"
+      }
+    },
+    {
+      "id": "1748818637855",
+      "status": "Entregado",
+      "details": "prueba de motor",
+      "_orkshopAssigned": "TUlio Norte",
+      "vehicle": {
+        "id": 3,
+        "license_plate": "ZYZ-999",
+        "brand": "Ford",
+        "model": "Mustang",
+        "year": 2014,
+        "fuel_type": "Gasoline"
+      }
+    },
+    {
+      "id": "1748824558096",
+      "status": "Entregado",
+      "details": "prueba",
+      "workshopAssigned": "testing",
+      "vehicle": {
+        "id": 5,
+        "license_plate": "ZRE-143",
+        "brand": "Toyota",
+        "model": "Corolla",
+        "year": 2015,
+        "fuel_type": "Gasoline"
+      }
+    },
+    {
+      "id": "1748828674920",
+      "status": "Por revisar",
+      "details": "fdsafsd",
+      "workshopAssigned": "fawwae",
+      "vehicle": {
+        "id": 2,
+        "license_plate": "XYZ-789",
+        "brand": "Ford",
+        "model": "Mustang",
+        "year": 2018,
+        "fuel_type": "Gasoline"
+      }
+    }
+  ]
+}

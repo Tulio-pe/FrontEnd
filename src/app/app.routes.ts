@@ -1,26 +1,28 @@
 import { Routes } from '@angular/router';
+import {AppRoutes} from './public/services/routes';
+
 export const routes: Routes = [
   {
-    path: "workshop",
+    path: AppRoutes.WORKSHOP.ROOT,
     children: [
       {
-        path: 'login',
+        path: AppRoutes.WORKSHOP.LOGIN,
         loadComponent: () =>
           import('./access-and-identity/pages/login.page').then(m => m.LoginPage)
       },
       {
-        path: 'register',
+        path: AppRoutes.WORKSHOP.REGISTER,
         loadComponent: () =>
           import('./access-and-identity/pages/register.page').then(m => m.RegisterPage)
       },
       {
-        path: 'onboarding/info',
+        path: AppRoutes.WORKSHOP.ONBOARDING_INFO,
         /*canActivate: [AuthGuard],*/
         loadComponent: () =>
           import('./workshop/pages/workshop-info.page').then(m => m.WorkshopInfoPage)
       },
       {
-        path: 'onboarding/schedule',
+        path: AppRoutes.WORKSHOP.ONBOARDING_SCHEDULE,
         /*canActivate: [AuthGuard],*/
         loadComponent: () =>
           import('./workshop/pages/schedule-hours.page').then(m => m.ScheduleHoursPage)
@@ -31,13 +33,13 @@ export const routes: Routes = [
           import("./shared/components/layout-workshop-panel/layout-workshop-panel.component").then(m => m.LayoutWorkshopPanelComponent),
         children:[
           {
-            path: 'dashboard',
+            path: AppRoutes.WORKSHOP.DASHBOARD,
             /*canActivate: [AuthGuard],*/
             loadComponent: () =>
               import('./repair-management/pages/dashboard.page').then(m => m.DashboardPage)
           },
           {
-            path: 'cars',
+            path: AppRoutes.WORKSHOP.CARS,
             /*canActivate: [AuthGuard],*/
             loadComponent: () =>
               import('./repair-management/pages/list-cars-page/list-cars-page.component').then(m => m.ListCarsPageComponent)
@@ -52,45 +54,7 @@ export const routes: Routes = [
       },*/
     ]
   },
-  {
-    path: '',
-    /*loadComponent: () =>
-      import('./shared/layouts/main-layout/main-layout.component')
-        .then(m => m.MainLayoutComponent),*/
-    children: [
-      // Al navegar a “/” redirige a /workshops
-      { path: '', pathMatch: 'full', redirectTo: 'workshops' },
 
-      // LISTADO DE WORKSHOPS
-      {
-        path: 'workshops',
-       /* loadComponent: () =>
-          import('./workshops/pages/list-workshops.page')
-            .then(m => m.ListWorkshopsPage)*/
-      },
-      {
-        path: 'workshops/:id',
-        /*loadComponent: () =>
-          import('./workshops/pages/workshop-detail.page')
-            .then(m => m.WorkshopDetailPage)*/
-      },
-
-      // CAR-TRACKING
-      {
-        path: 'car-tracking',
-        /*loadComponent: () =>
-          import('./car-tracking/pages/list-car-tracking.page')
-            .then(m => m.ListCarTrackingPage)*/
-      },
-      {
-        path: 'car-tracking/:code',
-        /*loadComponent: () =>
-          import('./car-tracking/pages/car-tracking-detail.page')
-            .then(m => m.CarTrackingDetailPage)*/
-      },
-    ]
-  },
-  { path: '**', redirectTo: '' }
 ];
 /*Add commentMore actions
 export const routes: Routes = [Add commentMore actions

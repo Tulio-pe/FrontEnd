@@ -1,10 +1,10 @@
 export const AppRoutes = {
   WORKSHOP: {
     ROOT: 'workshop',
-    LOGIN: 'workshop/login',
-    REGISTER: 'workshop/register',
-    ONBOARDING_INFO: 'workshop/onboarding/info',
-    ONBOARDING_SCHEDULE: 'workshop/onboarding/schedule',
+    LOGIN: 'login',
+    REGISTER: 'register',
+    ONBOARDING_INFO: 'onboarding/info',
+    ONBOARDING_SCHEDULE: 'onboarding/schedule',
     DASHBOARD: 'dashboard',
     CARS: 'cars',
     CONFIG: 'configuration',

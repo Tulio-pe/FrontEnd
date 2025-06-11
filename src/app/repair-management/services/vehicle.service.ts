@@ -32,7 +32,7 @@ export class VehicleService {
 
   private handleError(error: any) {
     console.error('Server error:', error);
-    return throwError(() => new Error('Error communicating with backend'));
+    return throwError(() => new Error('Error doing operation with vehicles.'));
   }
 
   getByLicensePlate(plate: string): Observable<Vehicle[]> {

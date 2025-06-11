@@ -1,0 +1,32 @@
+<div class="workshop-card" (click)="viewDetails()">
+  <div class="card-image">
+    <img [src]="workshop.imageUrl" [alt]="workshop.name" *ngIf="workshop.imageUrl" />
+    <div class="image-placeholder" *ngIf="!workshop.imageUrl">
+      <mat-icon>image</mat-icon>
+    </div>
+  </div>
+
+  <div class="card-content">
+    <h3 class="workshop-name">{{ workshop.companyName }}</h3>
+    <p class="workshop-location">{{ workshop.district | titlecase }} • {{ workshop.province | titlecase }}</p>
+
+    <div class="rating-section">
+      <div class="stars">
+        <mat-icon *ngFor="let star of getStars()" [class.filled]="star">star</mat-icon>
+      </div>
+      <span class="rating-text">({{ workshop.reviewCount }})</span>
+    </div>
+
+    <div class="specialties">
+      <div class="specialty-chips">
+        <span class="specialty-chip" *ngFor="let specialty of workshop.specialties.slice(0, 2)">
+          {{ translateSpecialty(specialty) }}
+        </span>
+      </div>
+    </div>
+
+    <button mat-stroked-button color="primary" class="view-more-button" (click)="viewDetails(); $event.stopPropagation()">
+      {{ translate('button.see.more') }}
+    </button>
+  </div>
+</div>

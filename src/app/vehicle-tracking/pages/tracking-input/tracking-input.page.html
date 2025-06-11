@@ -1,0 +1,64 @@
+<div class="tracking-input-container">
+  <app-main-header [showBackButton]="false"></app-main-header>
+
+  <main class="main-content">
+    <div class="tracking-card">
+      <div class="tracking-icon">
+        <div class="icon-circle">
+          <mat-icon class="car-icon">build</mat-icon>
+          <mat-icon class="car-base">directions_car</mat-icon>
+        </div>
+      </div>
+
+      <div class="tracking-content">
+        <h1 class="tracking-title">{{ translate('tracking.title') }}</h1>
+        <p class="tracking-subtitle">{{ translate('tracking.subtitle') }}</p>
+
+        <form [formGroup]="trackingForm" (ngSubmit)="onSubmit()" class="tracking-form">
+          <mat-form-field appearance="outline" class="code-field">
+            <mat-label>{{ translate('tracking.code.label') }}</mat-label>
+            <input
+              matInput
+              formControlName="code"
+              [placeholder]="translate('tracking.code.placeholder')"
+              autocomplete="off">
+            <mat-error *ngIf="trackingForm.get('code')?.hasError('required')">
+              {{ translate('tracking.code.required') }}
+            </mat-error>
+            <mat-error *ngIf="trackingForm.get('code')?.hasError('minlength')">
+              {{ translate('tracking.code.minlength') }}
+            </mat-error>
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="submit-button"
+            [disabled]="!trackingForm.valid || loading">
+            <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+            <span *ngIf="!loading">{{ translate('tracking.submit') }}</span>
+          </button>
+        </form>
+
+        <div class="example-codes">
+          <p class="example-title">{{ translate('tracking.example.title') }}</p>
+          <div class="example-buttons">
+            <button
+              mat-stroked-button
+              class="example-button"
+              (click)="useExampleCode('TRK001234')">
+              TRK001234
+            </button>
+            <button
+              mat-stroked-button
+              class="example-button"
+              (click)="useExampleCode('TRK005678')">
+              TRK005678
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

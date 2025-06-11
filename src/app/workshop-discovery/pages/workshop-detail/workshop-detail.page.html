@@ -1,0 +1,121 @@
+<div class="workshop-detail-container" *ngIf="!loading && workshop; else loadingTemplate">
+  <app-main-header [showBackButton]="true"></app-main-header>
+
+  <main class="main-content">
+    <div class="workshop-hero">
+      <div class="workshop-image">
+        <img [src]="workshop.imageUrl" [alt]="workshop.name" />
+      </div>
+    </div>
+
+    <div class="workshop-info">
+      <div class="workshop-header">
+        <div class="company-info">
+          <div class="company-avatar">
+            <mat-icon>business</mat-icon>
+          </div>
+          <div class="company-details">
+            <h1 class="company-name">{{ workshop.companyName }}</h1>
+            <div class="rating-section">
+              <div class="stars">
+                <mat-icon *ngFor="let star of getStars()" [class.filled]="star">star</mat-icon>
+              </div>
+              <span class="rating-text">{{ workshop.rating.toFixed(1) }} ({{ workshop.reviewCount }} {{ translate('workshop.reviews') }})</span>
+            </div>
+            <p class="workshop-location">
+              <mat-icon>location_on</mat-icon>
+              {{ workshop.address }}
+            </p>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button mat-raised-button class="contact-button">
+            <mat-icon>phone</mat-icon>
+            <span>{{ translate('button.contact') }}</span>
+          </button>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="workshop-content">
+        <div class="left-column">
+          <section class="description-section">
+            <h2>{{ translate('workshop.description') }}</h2>
+            <p>{{ workshop.description }}</p>
+          </section>
+
+          <section class="specialties-section">
+            <h2>{{ translate('workshop.specialties') }}</h2>
+            <div class="specialty-chips">
+              <span class="specialty-chip" *ngFor="let specialty of workshop.specialties">
+                {{ translateSpecialty(specialty) }}
+              </span>
+            </div>
+          </section>
+
+          <section class="contact-section">
+            <h2>{{ translate('workshop.contact.info') }}</h2>
+            <div class="contact-item">
+              <mat-icon>phone</mat-icon>
+              <span>{{ workshop.phone }}</span>
+            </div>
+            <div class="contact-item">
+              <mat-icon>email</mat-icon>
+              <span>{{ workshop.email }}</span>
+            </div>
+            <div class="contact-item" *ngIf="workshop.website">
+              <mat-icon>language</mat-icon>
+              <a [href]="workshop.website" target="_blank">{{ workshop.website }}</a>
+            </div>
+          </section>
+        </div>
+
+        <div class="right-column">
+          <mat-card class="schedule-card">
+            <mat-card-header>
+              <mat-card-title>{{ translate('workshop.schedule') }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="schedule-list">
+                <div class="schedule-item" *ngFor="let schedule of workshop.schedule">
+                  <span class="day">{{ translateDay(schedule.day) }}</span>
+                  <span class="hours" [class.closed]="!schedule.isOpen">
+                    {{ schedule.isOpen ? schedule.openTime + ' - ' + schedule.closeTime : translate('workshop.closed') }}
+                  </span>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="services-card">
+            <mat-card-header>
+              <mat-card-title>{{ translate('workshop.services') }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="services-list">
+                <div class="service-item" *ngFor="let service of workshop.services">
+                  <div class="service-info">
+                    <h4>{{ service.name }}</h4>
+                    <p>{{ service.description }}</p>
+                  </div>
+                  <div class="service-details">
+                    <span class="time">{{ service.estimatedTime }}</span>
+                    <span class="price">{{ service.price }}</span>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <mat-spinner color="primary"></mat-spinner>
+    <p class="loading-text">{{ translate('loading') }}</p>
+  </div>
+</ng-template>

@@ -1,0 +1,43 @@
+<form [formGroup]="filtersForm" class="filters-container">
+  <div class="filters-row">
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>{{ translate('filters.region') }}</mat-label>
+      <mat-select formControlName="region" (selectionChange)="onRegionChange()">
+        <mat-option *ngFor="let region of regions" [value]="region.value">
+          {{ region.label.startsWith('filters.') ? translate(region.label) : region.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>{{ translate('filters.province') }}</mat-label>
+      <mat-select formControlName="province" (selectionChange)="onProvinceChange()">
+        <mat-option *ngFor="let province of provinces" [value]="province.value">
+          {{ province.label.startsWith('filters.') ? translate(province.label) : province.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>{{ translate('filters.district') }}</mat-label>
+      <mat-select formControlName="district">
+        <mat-option *ngFor="let district of districts" [value]="district.value">
+          {{ district.label.startsWith('filters.') ? translate(district.label) : district.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>{{ translate('filters.specialty') }}</mat-label>
+      <mat-select formControlName="specialty">
+        <mat-option *ngFor="let specialty of specialties" [value]="specialty.value">
+          {{ specialty.label.startsWith('filters.') || specialty.label.startsWith('specialties.') ? translate(specialty.label) : specialty.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="button" (click)="onSearch()" class="search-button">
+      {{ translate('button.search') }}
+    </button>
+  </div>
+</form>

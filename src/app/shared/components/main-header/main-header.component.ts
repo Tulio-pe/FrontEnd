@@ -29,6 +29,10 @@ export class MainHeaderComponent {
     this.router.navigate(["/vehicle-tracking"])
   }
 
+  goToLogin() {
+    this.router.navigate(["/workshop/login"])
+  }
+
   translate(key: string): string {
     return this.i18nService.translate(key)
   }

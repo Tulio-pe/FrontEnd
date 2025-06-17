@@ -23,6 +23,7 @@ export class I18nService {
       "button.see.more": "Ver más",
       "button.contact": "Contactar",
       "button.vehicle.tracking": "Seguimiento de vehículo",
+      "button.manage.workshop": "Gestiona tu taller",
       "button.back": "Volver",
       "workshop.description": "Descripción",
       "workshop.specialties": "Especialidades",
@@ -71,6 +72,8 @@ export class I18nService {
       "tracking.status.completed": "Completado",
       "tracking.status.in-progress": "En progreso",
       "tracking.status.pending": "Pendiente",
+      "tracking.status.started": "Iniciado",
+      "tracking.status.advanced": "Avanzado",
     },
     en: {
       "welcome.user": "Welcome User",
@@ -86,6 +89,7 @@ export class I18nService {
       "button.see.more": "See more",
       "button.contact": "Contact",
       "button.vehicle.tracking": "Vehicle tracking",
+      "button.manage.workshop": "Manage your workshop",
       "button.back": "Back",
       "workshop.description": "Description",
       "workshop.specialties": "Specialties",
@@ -134,6 +138,8 @@ export class I18nService {
       "tracking.status.completed": "Completed",
       "tracking.status.in-progress": "In progress",
       "tracking.status.pending": "Pending",
+      "tracking.status.started": "Started",
+      "tracking.status.advanced": "Advanced",
     },
   }
 

@@ -1,11 +1,20 @@
 .register-container {
   display: flex;
   height: 100vh;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.language-selector {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
 }
 
 .brand-container {
   flex: 1;
-  background-color: #1D4ED8; 
+  background-color: #1d4ed8;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,7 +22,7 @@
   color: white;
   padding: 20px;
   text-align: center;
-  border-radius: 0 120px 120px 0; 
+  border-radius: 0 120px 120px 0;
 }
 
 .brand-title {
@@ -27,6 +36,25 @@
   max-width: 80%;
   margin-bottom: 2rem;
   font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.login-now-btn {
+  padding: 8px 16px;
+  background-color: white;
+  color: #1d4ed8;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: background-color 0.2s ease;
+}
+
+.login-now-btn:hover {
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .register-form-container {
@@ -36,11 +64,12 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
+  position: relative;
 }
 
 .register-form {
   width: 100%;
-  max-width: 400px;
+  max-width: 320px;
   padding: 20px;
 }
 
@@ -57,22 +86,19 @@
 }
 
 .tallerazo-logo {
-  max-width: 180px;
+  max-width: 100px;
   height: auto;
 }
 
-.form-row {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 15px;
-}
-
-.form-row .form-group {
-  flex: 1;
+.form-header h1 {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 500;
+  margin: 0;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .form-control {
@@ -81,41 +107,108 @@
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   box-sizing: border-box;
+  color: #333;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #1d4ed8;
+}
+
+.form-control.is-invalid {
+  border-color: #dc3545;
 }
 
 .register-btn {
   display: block;
   width: 100%;
   padding: 10px;
-  background-color: #1D4ED8;
+  background-color: #1d4ed8;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   margin-bottom: 15px;
   font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
 }
 
-.register-btn:hover {
-  background-color: #1739B5;
+.register-btn:hover:not(:disabled) {
+  background-color: #1739b5;
 }
 
-.login-now-btn {
-  padding: 10px 20px;
-  background-color: white;
-  color: #1D4ED8;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
+.register-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.login-question {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+.login-question a {
+  color: #1d4ed8;
+  text-decoration: none;
   font-weight: 500;
 }
 
-.login-now-btn:hover {
-  background-color: rgba(255, 255, 255, 0.9);
+.login-question a:hover {
+  text-decoration: underline;
 }
 
 .error-message {
   color: #dc3545;
   font-size: 0.85rem;
   margin-top: 5px;
+  font-weight: 500;
+}
+
+/* Estilos para el language switcher */
+::ng-deep .language-selector .language-button {
+  color: #666;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+::ng-deep .language-selector .language-button:hover {
+  color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .register-container {
+    flex-direction: column;
+  }
+
+  .brand-container {
+    border-radius: 0;
+    order: -1;
+    min-height: 200px;
+  }
+
+  .brand-title {
+    font-size: 2rem;
+  }
+
+  .language-selector {
+    top: 10px;
+    right: 10px;
+  }
+
+  .register-form-container {
+    padding: 20px 16px;
+  }
+
+  .register-form {
+    max-width: 100%;
+  }
 }

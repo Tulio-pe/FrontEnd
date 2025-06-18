@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
-import { RegisterComponent } from '../components/register/register.component';
+import { Component } from "@angular/core"
+import { RegisterComponent } from "../components/register/register.component"
 
 @Component({
-  selector: 'app-register-page',
+  selector: "app-register-page",
   standalone: true,
   imports: [RegisterComponent],
-  template: '<app-register></app-register>',
-  styles: []
+  template: `<app-register></app-register>`,
 })
 export class RegisterPage {}

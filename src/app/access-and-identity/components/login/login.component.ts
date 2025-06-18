@@ -38,8 +38,8 @@ export class LoginComponent {
 
     const { email, password } = this.loginForm.value
 
-    // Para la demo, vamos directamente a la página de información del taller
-    this.router.navigate(["/workshop/onboarding/info"])
+    // Para la demo, vamos directamente al dashboard
+    this.router.navigate(["/workshop/dashboard"])
   }
 
   navigateToRegister(): void {

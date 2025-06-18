@@ -11,7 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';
 import {VehicleService} from '../../services/vehicle.service';
-import {SideNavegationBarComponent} from '../../../public/components/side-navegation-bar/side-navegation-bar.component';
+
 
 @Component({
   selector: 'app-dashboard-work-shop-page',
@@ -29,7 +29,6 @@ import {SideNavegationBarComponent} from '../../../public/components/side-navega
     ItemAutoComponent,
     MatOption,
     MatSelect,
-    SideNavegationBarComponent,
   ],
 })
 export class DashboardWorkShopPageComponent implements OnInit {

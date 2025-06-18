@@ -1,88 +1,83 @@
 <div class="login-container">
   <div class="language-selector">
-    <button>ES</button>
-    <span>|</span>
-    <button>EN</button>
+    <app-language-switcher></app-language-switcher>
   </div>
+
   <div class="login-form-container">
     <div class="login-form">
       <div class="form-header">
         <div class="logo-container">
-          <img src="tallerazo_logo.png" alt="Tallerazo" class="tallerazo-logo">
+          <img src="/assets/img/tallerazo-icon-large.png" alt="Tallerazo" class="tallerazo-logo">
         </div>
-        <h1>Iniciar Sesión</h1>
+        <h1>{{ translate('login.title') }}</h1>
       </div>
-      
+
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <input 
-            type="email" 
-            formControlName="email" 
-            class="form-control" 
-            placeholder="Email"
+          <input
+            type="email"
+            formControlName="email"
+            class="form-control"
+            [placeholder]="translate('login.email.placeholder')"
             [ngClass]="{'is-invalid': loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)}"
           >
-          @if (loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)) {
-            <div class="error-message">
-              @if (loginForm.get('email')?.hasError('required')) {
-                <span>Email es requerido</span>
-              } @else if (loginForm.get('email')?.hasError('email')) {
-                <span>Email inválido</span>
-              }
-            </div>
-          }
+          <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" class="error-message">
+            <span *ngIf="loginForm.get('email')?.hasError('required')">{{ translate('login.email.required') }}</span>
+            <span *ngIf="loginForm.get('email')?.hasError('email')">{{ translate('login.email.invalid') }}</span>
+          </div>
         </div>
-        
+
         <div class="form-group">
-          <input 
-            type="password" 
-            formControlName="password" 
-            class="form-control" 
-            placeholder="Password"
+          <input
+            type="password"
+            formControlName="password"
+            class="form-control"
+            [placeholder]="translate('login.password.placeholder')"
             [ngClass]="{'is-invalid': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)}"
           >
-          @if (loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)) {
-            <div class="error-message">
-              @if (loginForm.get('password')?.hasError('required')) {
-                <span>Contraseña es requerida</span>
-              } @else if (loginForm.get('password')?.hasError('minlength')) {
-                <span>La contraseña debe tener al menos 6 caracteres</span>
-              }
-            </div>
-          }
+          <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="error-message">
+            <span *ngIf="loginForm.get('password')?.hasError('required')">{{ translate('login.password.required') }}</span>
+            <span *ngIf="loginForm.get('password')?.hasError('minlength')">{{ translate('login.password.minlength') }}</span>
+          </div>
         </div>
-          <button 
-          type="submit" 
+
+        <button
+          type="submit"
           class="login-btn"
           [disabled]="loginForm.invalid || isSubmitting">
-          {{ isSubmitting ? 'Iniciando sesión...' : 'Iniciar Sesión' }}
+          {{ isSubmitting ? translate('login.submitting') : translate('login.submit') }}
         </button>
-        
-        <button 
-          type="button" 
+
+        <button
+          type="button"
           class="register-btn"
           (click)="navigateToRegister()">
-          Crear Cuenta
+          {{ translate('login.create.account') }}
         </button>
-        
+
+        <button
+          type="button"
+          class="view-workshops-btn"
+          (click)="navigateToWorkshops()">
+          {{ translate('login.view.workshops') }}
+        </button>
+
         <div class="register-question">
-          ¿No tienes una cuenta? <a href="javascript:void(0)" (click)="navigateToRegister()">Regístrate</a>
+          {{ translate('login.no.account') }} <a href="javascript:void(0)" (click)="navigateToRegister()">{{ translate('login.register.link') }}</a>
         </div>
-        
-        @if (errorMessage) {
-          <div class="error-message">
-            {{ errorMessage }}
-          </div>
-        }
+
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
       </form>
     </div>
   </div>
-  
+
   <div class="brand-container">
     <h1 class="brand-title">Tallerazo</h1>
     <p class="brand-description">
-      Cree una cuenta con sus datos personales para utilizar todas las funciones del sitio.
+      {{ translate('login.brand.description') }}
     </p>
-    <button class="register-now-btn" (click)="navigateToRegister()">REGISTRARSE</button>
+    <button class="register-now-btn" (click)="navigateToRegister()">{{ translate('login.register.now') }}</button>
   </div>
 </div>

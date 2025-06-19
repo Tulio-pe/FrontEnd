@@ -1,0 +1,44 @@
+{
+  "workshops": [
+    {
+      "id": "1",
+      "name": "Taller Mecánico Express",
+      "companyName": "Taller Mecánico Express",
+      "description": "Especialistas en reparación y mantenimiento automotriz",
+      "imageUrl": "/assets/img/taller1.png",
+      "region": "lima",
+      "province": "lima",
+      "district": "miraflores",
+      "specialties": ["mecanica", "electricidad", "pintura"],
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "Av. Larco 123, Miraflores",
+      "phone": "+51 999 888 777",
+      "email": "contacto@tallerexpress.com",
+      "schedule": [
+        { "day": "Lunes", "openTime": "08:00", "closeTime": "18:00", "isOpen": true },
+        { "day": "Martes", "openTime": "08:00", "closeTime": "18:00", "isOpen": true },
+        { "day": "Miércoles", "openTime": "08:00", "closeTime": "18:00", "isOpen": true },
+        { "day": "Jueves", "openTime": "08:00", "closeTime": "18:00", "isOpen": true },
+        { "day": "Viernes", "openTime": "08:00", "closeTime": "18:00", "isOpen": true },
+        { "day": "Sábado", "openTime": "08:00", "closeTime": "14:00", "isOpen": true },
+        { "day": "Domingo", "openTime": "", "closeTime": "", "isOpen": false }
+      ],
+      "services": [
+        {
+          "name": "Cambio de aceite",
+          "description": "Cambio completo de aceite y filtro",
+          "estimatedTime": "30 min",
+          "price": "S/. 80"
+        },
+        {
+          "name": "Revisión general",
+          "description": "Diagnóstico completo del vehículo",
+          "estimatedTime": "2 horas",
+          "price": "S/. 150"
+        }
+      ],
+      "isOpen": true
+    }
+  ]
+}

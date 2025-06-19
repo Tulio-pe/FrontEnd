@@ -1,0 +1,71 @@
+<div class="cars-container">
+  <div class="cars-header">
+    <h1 class="page-title">{{ translate('cars.title') }}</h1>
+    <button mat-raised-button color="primary" class="add-button" (click)="openCreateVehicleDialog()">
+      {{ translate('cars.add.car') }}
+    </button>
+  </div>
+
+  <div class="cars-content">
+    <div class="section-header">
+      <h2>{{ translate('cars.list.title') }}</h2>
+      <p class="section-subtitle">{{ translate('cars.list.subtitle') }}</p>
+    </div>
+
+    <div class="vehicles-grid">
+      <div *ngFor="let vehicle of vehicles$ | async" class="vehicle-card">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title class="plate-number">
+              <mat-icon>directions_car</mat-icon>
+              {{ vehicle.plateNumber }}
+            </mat-card-title>
+            <mat-card-subtitle>
+              {{ vehicle.year }} • {{ vehicle.brand }} • {{ vehicle.model }}
+            </mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div class="vehicle-details">
+              <div class="detail-item">
+                <span class="label">{{ translate('cars.brand') }}:</span>
+                <span class="value">{{ vehicle.brand }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">{{ translate('cars.model') }}:</span>
+                <span class="value">{{ vehicle.model }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">{{ translate('cars.year') }}:</span>
+                <span class="value">{{ vehicle.year }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">{{ translate('cars.color') }}:</span>
+                <span class="value">{{ vehicle.color }}</span>
+              </div>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button mat-raised-button
+                    color="primary"
+                    class="start-repair-button"
+                    (click)="startRepair(vehicle)"
+                    [disabled]="vehicle.isInRepair">
+              <mat-icon>build</mat-icon>
+              {{ vehicle.isInRepair ? translate('cars.in.repair') : translate('cars.start.repair') }}
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+
+    <div *ngIf="(vehicles$ | async)?.length === 0" class="empty-state">
+      <mat-icon class="empty-icon">directions_car</mat-icon>
+      <p>{{ translate('cars.no.vehicles') }}</p>
+      <button mat-raised-button color="primary" (click)="openCreateVehicleDialog()">
+        {{ translate('cars.add.first.car') }}
+      </button>
+    </div>
+  </div>
+</div>

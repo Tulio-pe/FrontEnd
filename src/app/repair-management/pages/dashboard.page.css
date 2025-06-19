@@ -1,0 +1,200 @@
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.create-button {
+  background-color: #1d4ed8 !important;
+  color: white !important;
+  border-radius: 8px;
+  font-weight: 500;
+  text-transform: none;
+  padding: 0 24px;
+  height: 48px;
+}
+
+.dashboard-content {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.section-header {
+  padding: 24px 24px 0;
+}
+
+.section-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+}
+
+.section-subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0;
+}
+
+.repair-tabs {
+  padding: 0 24px;
+}
+
+.tab-content {
+  padding: 24px 0;
+}
+
+.repairs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.repair-card mat-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.repair-card mat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.plate-number {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #1d4ed8 !important;
+}
+
+.plate-number mat-icon {
+  color: #1d4ed8;
+}
+
+.services-section h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 12px 0;
+}
+
+.services-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.service-chip {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  color: #1d4ed8;
+  border: 1px solid rgba(29, 78, 216, 0.2);
+  font-size: 12px;
+  height: 28px;
+}
+
+.change-status-button {
+  border: 2px solid #1d4ed8;
+  color: #1d4ed8;
+  border-radius: 6px;
+  font-weight: 500;
+  text-transform: none;
+  transition: all 0.2s ease;
+}
+
+.change-status-button:hover {
+  background-color: #1d4ed8;
+  color: white;
+}
+
+.next-status {
+  font-size: 11px;
+  opacity: 0.8;
+  margin-left: 4px;
+}
+
+.completed-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #059669;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.completed-badge mat-icon {
+  color: #059669;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 64px 24px;
+  color: #64748b;
+}
+
+.empty-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+
+/* Estilos para Material Tabs */
+::ng-deep .repair-tabs .mat-mdc-tab-group {
+  --mdc-tab-indicator-active-indicator-color: #1d4ed8;
+}
+
+::ng-deep .repair-tabs .mat-mdc-tab .mdc-tab__text-label {
+  color: #64748b;
+  font-weight: 500;
+}
+
+::ng-deep .repair-tabs .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .repairs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header {
+    padding: 20px 20px 0;
+  }
+
+  .repair-tabs {
+    padding: 0 20px;
+  }
+}

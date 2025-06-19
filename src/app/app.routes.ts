@@ -1,4 +1,4 @@
-import type { Routes } from "@angular/router"
+import  { Routes } from "@angular/router"
 
 export const routes: Routes = [
   {
@@ -14,19 +14,52 @@ export const routes: Routes = [
       },
       {
         path: "onboarding",
-        loadComponent: ()=> import("./shared/components/layout-workshop-onboarding/layout-workshop-onboarding.component").then((m) => m.LayoutWorkshopOnboardingComponent),
+        loadComponent: () =>
+          import("./shared/components/layout-workshop-onboarding/layout-workshop-onboarding.component").then(
+            (m) => m.LayoutWorkshopOnboardingComponent,
+          ),
         children: [
           {
             path: "info",
             /*canActivate: [AuthGuard],*/
-            loadComponent: () => import("./workshop/pages/onboarding-workshop-info-page/onboarding-workshop-info-page.component").then((m) => m.OnboardingWorkshopInfoPageComponent),
+            loadComponent: () =>
+              import("./workshop/pages/onboarding-workshop-info-page/onboarding-workshop-info-page.component").then(
+                (m) => m.OnboardingWorkshopInfoPageComponent,
+              ),
           },
           {
             path: "schedule",
             /*canActivate: [AuthGuard],*/
-            loadComponent: () => import("./workshop/pages/onboarding-schedule-page/onboarding-schedule-page.component").then((m) => m.OnboardingSchedulePageComponent),
+            loadComponent: () =>
+              import("./workshop/pages/onboarding-schedule-page/onboarding-schedule-page.component").then(
+                (m) => m.OnboardingSchedulePageComponent,
+              ),
           },
-        ]
+        ],
+      },
+      {
+        path: "",
+        loadComponent: () =>
+          import("./shared/components/layout-workshop-panel/layout-workshop-panel.component").then(
+            (m) => m.LayoutWorkshopPanelComponent,
+          ),
+        children: [
+          {
+            path: "dashboard",
+            /*canActivate: [AuthGuard],*/
+            loadComponent: () => import("./repair-management/pages/dashboard.page").then((m) => m.DashboardPage),
+          },
+          {
+            path: "cars",
+            /*canActivate: [AuthGuard],*/
+            loadComponent: () => import("./repair-management/pages/cars.page").then((m) => m.CarsPage),
+          },
+          {
+            path: "config",
+            /*canActivate: [AuthGuard],*/
+            loadComponent: () => import("./repair-management/pages/config.page").then((m) => m.ConfigPage),
+          },
+        ],
       },
     ],
   },

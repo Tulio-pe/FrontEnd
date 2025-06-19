@@ -1,73 +1,112 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { RepairOrder, StatusType } from '../models/repairorder.entity';
+import { Injectable } from "@angular/core"
+import { BehaviorSubject, type Observable, of } from "rxjs"
+import { delay, map } from "rxjs/operators"
+import type { Repair, CreateRepairRequest, RepairStatus } from "../models"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class RepairService {
-  private baseUrl = 'http://localhost:3000/repairs';
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+  private repairsSubject = new BehaviorSubject<Repair[]>([
+    {
+      id: "1",
+      plateNumber: "ABC-123",
+      vehicleInfo: {
+        brand: "Toyota",
+        model: "Corolla",
+        year: 2020,
+        color: "Blanco",
+      },
+      services: [
+        {
+          id: "1",
+          name: "Cambio aceite",
+          description: "Cambio completo de aceite y filtro",
+          estimatedTime: "30 min",
+          price: 80,
+          status: "pending",
+        },
+        {
+          id: "2",
+          name: "Transmisión",
+          description: "Revisión de transmisión",
+          estimatedTime: "2 horas",
+          price: 200,
+          status: "pending",
+        },
+        {
+          id: "3",
+          name: "Refrigeración",
+          description: "Mantenimiento del sistema de refrigeración",
+          estimatedTime: "1 hora",
+          price: 150,
+          status: "pending",
+        },
+      ],
+      status: "por-revisar",
+      createdAt: "2024-01-15T10:00:00Z",
+      updatedAt: "2024-01-15T10:00:00Z",
+    },
+  ])
 
-  constructor(private http: HttpClient) {}
+  public repairs$ = this.repairsSubject.asObservable()
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('Client-side error:', error.error.message);
-    } else {
-      console.error(`Server error ${error.status}:`, error.error);
+  getRepairs(): Observable<Repair[]> {
+    return this.repairs$
+  }
+
+  getRepairsByStatus(status: RepairStatus): Observable<Repair[]> {
+    return this.repairs$.pipe(map((repairs) => repairs.filter((repair) => repair.status === status)))
+  }
+
+  createRepair(request: CreateRepairRequest): Observable<Repair> {
+    const newRepair: Repair = {
+      id: Date.now().toString(),
+      plateNumber: request.plateNumber,
+      vehicleInfo: request.vehicleInfo,
+      services: request.services.map((serviceName, index) => ({
+        id: (index + 1).toString(),
+        name: serviceName,
+        description: `Servicio de ${serviceName}`,
+        estimatedTime: "1 hora",
+        price: 100,
+        status: "pending" as const,
+      })),
+      status: "por-revisar",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     }
-    return throwError(() => new Error('Communication error with server. Please try again later.'));
+
+    const currentRepairs = this.repairsSubject.value
+    this.repairsSubject.next([...currentRepairs, newRepair])
+
+    return of(newRepair).pipe(delay(500))
   }
 
-  // Obtener todas las órdenes de reparación
-  getAll(): Observable<RepairOrder[]> {
-    return this.http.get<RepairOrder[]>(this.baseUrl, this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      );
+  updateRepairStatus(repairId: string, status: RepairStatus): Observable<Repair> {
+    const currentRepairs = this.repairsSubject.value
+    const updatedRepairs = currentRepairs.map((repair) =>
+      repair.id === repairId ? { ...repair, status, updatedAt: new Date().toISOString() } : repair,
+    )
+
+    this.repairsSubject.next(updatedRepairs)
+
+    const updatedRepair = updatedRepairs.find((r) => r.id === repairId)!
+    return of(updatedRepair).pipe(delay(300))
   }
 
-  // Crear una nueva orden de reparación
-  create(order: RepairOrder): Observable<RepairOrder> {
-    return this.http.post<RepairOrder>(this.baseUrl, order, this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      );
-  }
-
-  // Actualizar una orden (usando PUT completo)
-  update(order: RepairOrder): Observable<RepairOrder> {
-    const url = `${this.baseUrl}/${order.id}`;
-    return this.http.put<RepairOrder>(url, order, this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      );
-  }
-
-  // Filtrar órdenes por estado (status)
-  filterByStatus(status: StatusType): Observable<RepairOrder[]> {
-    const url = `${this.baseUrl}?status=${encodeURIComponent(status)}`;
-    return this.http.get<RepairOrder[]>(url, this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      );
-  }
-
-  // Eliminar una orden por ID
-  delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`, this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      );
+  getAvailableServices(): string[] {
+    return [
+      "Cambio aceite",
+      "Transmisión",
+      "Refrigeración",
+      "Frenos",
+      "Suspensión",
+      "Electricidad",
+      "Pintura",
+      "Planchado",
+      "Llantas nuevas",
+      "Llantas usadas",
+    ]
   }
 }

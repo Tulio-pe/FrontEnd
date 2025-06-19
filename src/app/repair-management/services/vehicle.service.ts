@@ -1,42 +1,54 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { Vehicle } from '../models/vehicle.entity';
+import { Injectable } from "@angular/core"
+import { BehaviorSubject, type Observable, of } from "rxjs"
+import { delay } from "rxjs/operators"
+import type { Vehicle, CreateVehicleRequest } from "../models"
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class VehicleService {
-  private baseUrl = 'http://localhost:3000/vehicles';
+  private vehiclesSubject = new BehaviorSubject<Vehicle[]>([
+    {
+      id: "1",
+      plateNumber: "XYZ-789",
+      brand: "Honda",
+      model: "Civic",
+      year: 2019,
+      color: "Azul",
+      createdAt: "2024-01-14T15:30:00Z",
+      isInRepair: false,
+    },
+  ])
 
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };
+  public vehicles$ = this.vehiclesSubject.asObservable()
 
-  constructor(private http: HttpClient) {}
-
-  getAll(): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(this.baseUrl, this.httpOptions).pipe(
-      retry(2),
-      catchError(this.handleError)
-    );
+  getVehicles(): Observable<Vehicle[]> {
+    return this.vehicles$
   }
 
-  create(vehicle: Vehicle): Observable<Vehicle> {
-    return this.http.post<Vehicle>(this.baseUrl, vehicle, this.httpOptions).pipe(
-      retry(2),
-      catchError(this.handleError)
-    );
+  createVehicle(request: CreateVehicleRequest): Observable<Vehicle> {
+    const newVehicle: Vehicle = {
+      id: Date.now().toString(),
+      ...request,
+      createdAt: new Date().toISOString(),
+      isInRepair: false,
+    }
+
+    const currentVehicles = this.vehiclesSubject.value
+    this.vehiclesSubject.next([...currentVehicles, newVehicle])
+
+    return of(newVehicle).pipe(delay(500))
   }
 
-  private handleError(error: any) {
-    console.error('Server error:', error);
-    return throwError(() => new Error('Error doing operation with vehicles.'));
-  }
+  updateVehicleRepairStatus(vehicleId: string, isInRepair: boolean): Observable<Vehicle> {
+    const currentVehicles = this.vehiclesSubject.value
+    const updatedVehicles = currentVehicles.map((vehicle) =>
+      vehicle.id === vehicleId ? { ...vehicle, isInRepair } : vehicle,
+    )
 
-  getByLicensePlate(plate: string): Observable<Vehicle[]> {
-    const url = `${this.baseUrl}?license_plate=${encodeURIComponent(plate)}`;
-    return this.http.get<Vehicle[]>(url);
+    this.vehiclesSubject.next(updatedVehicles)
+
+    const updatedVehicle = updatedVehicles.find((v) => v.id === vehicleId)!
+    return of(updatedVehicle).pipe(delay(300))
   }
 }

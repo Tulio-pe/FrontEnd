@@ -1,0 +1,222 @@
+<div class="config-container">
+  <div class="config-header">
+    <h1 class="page-title">Configuración del Taller</h1>
+    <p class="config-subtitle">Completa tu perfil y horarios para aparecer en la búsqueda de talleres</p>
+  </div>
+
+  <!-- Loading state -->
+  <div *ngIf="!isLoaded" class="loading-container">
+    <div class="loading-content">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Cargando configuración...</p>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="config-content" *ngIf="isLoaded">
+    <mat-tab-group class="config-tabs">
+      <!-- Pestaña Perfil -->
+      <mat-tab label="1. Perfil del Taller">
+        <div class="tab-content">
+          <div class="section-header">
+            <h2>Información del Taller</h2>
+            <p class="section-subtitle">Configura la información básica de tu taller</p>
+            <div *ngIf="profileCompleted" class="success-indicator">
+              <mat-icon color="primary">check_circle</mat-icon>
+              <span>Perfil completado</span>
+            </div>
+          </div>
+
+          <form [formGroup]="profileForm" class="profile-form">
+            <div class="form-section">
+              <div class="image-upload-section">
+                <div class="image-container" (click)="onImageClick()">
+                  <img
+                    *ngIf="imagePreview"
+                    [src]="imagePreview"
+                    alt="Preview del taller"
+                    class="image-preview">
+                  <div *ngIf="!imagePreview" class="image-placeholder">
+                    <mat-icon>image</mat-icon>
+                  </div>
+                  <div class="image-overlay">
+                    <mat-icon>camera_alt</mat-icon>
+                    <span>Cambiar Imagen</span>
+                  </div>
+                </div>
+                <input
+                  #fileInput
+                  type="file"
+                  accept="image/*"
+                  (change)="onImageSelected($event)"
+                  style="display: none;">
+                <p class="image-help-text">Haz clic para subir una imagen (máx. 5MB)</p>
+              </div>
+
+              <div class="form-fields">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Nombre del Taller</mat-label>
+                  <input matInput formControlName="name">
+                  <mat-error *ngIf="profileForm.get('name')?.hasError('required')">
+                    El nombre es requerido
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Email de Contacto</mat-label>
+                  <input matInput type="email" formControlName="email">
+                  <mat-error *ngIf="profileForm.get('email')?.hasError('required')">
+                    El email es requerido
+                  </mat-error>
+                  <mat-error *ngIf="profileForm.get('email')?.hasError('email')">
+                    Ingresa un email válido
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Teléfono de Contacto</mat-label>
+                  <input matInput formControlName="phone">
+                  <mat-error *ngIf="profileForm.get('phone')?.hasError('required')">
+                    El teléfono es requerido
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Descripción</mat-label>
+                  <textarea matInput rows="4" formControlName="description"></textarea>
+                  <mat-error *ngIf="profileForm.get('description')?.hasError('required')">
+                    La descripción es requerida
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="services-section">
+              <h3>Servicios</h3>
+
+              <div class="current-services">
+                <mat-chip-set>
+                  <mat-chip *ngFor="let service of profileData.services; let i = index"
+                            class="service-chip"
+                            (removed)="removeService(i)">
+                    {{ service }}
+                    <button matChipRemove>
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip>
+                </mat-chip-set>
+              </div>
+
+              <div class="add-service-section">
+                <div class="add-service-input">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Nuevo Servicio</mat-label>
+                    <input matInput [(ngModel)]="newService" [ngModelOptions]="{standalone: true}" (keyup.enter)="addService()">
+                  </mat-form-field>
+                  <button mat-raised-button color="primary" type="button" (click)="addService()" [disabled]="!newService.trim()">
+                    Agregar Servicio
+                  </button>
+                </div>
+
+                <div class="predefined-services">
+                  <p class="predefined-title">Servicios sugeridos:</p>
+                  <div class="predefined-chips">
+                    <button *ngFor="let service of availableServices"
+                            mat-stroked-button
+                            type="button"
+                            class="predefined-chip"
+                            (click)="addPredefinedService(service)"
+                            [disabled]="profileData.services.includes(service)">
+                      + {{ service }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button mat-raised-button
+                      color="primary"
+                      type="button"
+                      class="save-button"
+                      (click)="saveProfile()"
+                      [disabled]="profileForm.invalid || isSubmittingProfile">
+                <mat-icon *ngIf="isSubmittingProfile">hourglass_empty</mat-icon>
+                {{ isSubmittingProfile ? 'Guardando...' : 'Guardar Perfil' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </mat-tab>
+
+      <!-- Pestaña Horarios -->
+      <mat-tab label="2. Horarios de Atención" [disabled]="!profileCompleted">
+        <div class="tab-content">
+          <div class="section-header">
+            <h2>Horarios de Atención</h2>
+            <p class="section-subtitle">Configura los horarios de atención de tu taller</p>
+            <div *ngIf="!profileCompleted" class="warning-indicator">
+              <mat-icon color="warn">warning</mat-icon>
+              <span>Primero completa tu perfil</span>
+            </div>
+          </div>
+
+          <div class="schedule-form">
+            <div class="schedule-list">
+              <div *ngFor="let daySchedule of scheduleData.schedules" class="schedule-item">
+                <div class="day-info">
+                  <span class="day-name">{{ getDayName(daySchedule.day) }}</span>
+                  <mat-slide-toggle
+                    [checked]="daySchedule.isOpen"
+                    (change)="toggleDay(daySchedule)"
+                    class="day-toggle"
+                    [disabled]="!profileCompleted">
+                  </mat-slide-toggle>
+                </div>
+
+                <div class="time-inputs" *ngIf="daySchedule.isOpen">
+                  <mat-form-field appearance="outline" class="time-field">
+                    <input
+                      matInput
+                      type="time"
+                      [value]="daySchedule.openTime"
+                      (change)="updateScheduleTime(daySchedule, 'openTime', $event)"
+                      [disabled]="!profileCompleted">
+                  </mat-form-field>
+                  <span class="time-separator">a</span>
+                  <mat-form-field appearance="outline" class="time-field">
+                    <input
+                      matInput
+                      type="time"
+                      [value]="daySchedule.closeTime"
+                      (change)="updateScheduleTime(daySchedule, 'closeTime', $event)"
+                      [disabled]="!profileCompleted">
+                  </mat-form-field>
+                </div>
+
+                <div class="closed-indicator" *ngIf="!daySchedule.isOpen">
+                  <span class="closed-text">Cerrado</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button mat-raised-button
+                      color="primary"
+                      type="button"
+                      class="save-button"
+                      (click)="saveSchedule()"
+                      [disabled]="isSubmittingSchedule || !profileCompleted">
+                <mat-icon *ngIf="isSubmittingSchedule">hourglass_empty</mat-icon>
+                {{ isSubmittingSchedule ? 'Creando Taller...' : 'Guardar y Crear Taller' }}
+              </button>
+              <p class="help-text" *ngIf="profileCompleted">
+                Al guardar los horarios, tu taller será creado y estará disponible en la búsqueda pública.
+              </p>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

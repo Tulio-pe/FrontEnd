@@ -28,28 +28,6 @@ export const routes: Routes = [
           },
         ]
       },
-      {
-        path: "",
-        loadComponent: () =>
-          import("./shared/components/layout-workshop-panel/layout-workshop-panel.component").then(
-            (m) => m.LayoutWorkshopPanelComponent,
-          ),
-        children: [
-          {
-            path: "dashboard",
-            /*canActivate: [AuthGuard],*/
-            loadComponent: () => import("./repair-management/pages/dashboard.page").then((m) => m.DashboardPage),
-          },
-          {
-            path: "cars",
-            /*canActivate: [AuthGuard],*/
-            loadComponent: () =>
-              import("./repair-management/pages/list-cars-page/list-cars-page.component").then(
-                (m) => m.ListCarsPageComponent,
-              ),
-          },
-        ],
-      },
     ],
   },
   {

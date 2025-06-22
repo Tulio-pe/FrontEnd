@@ -1,0 +1,81 @@
+  <div class="schedule-wrapper">
+    <div class="days-container">
+      @for (day of days; track day.name) {
+      <div class="day-row">
+        <div class="day-header">
+          <label class="toggle-container">
+            <input type="checkbox" [checked]="day.enabled" (change)="toggleDay(day)" />
+            <span class="toggle-slider"></span>
+          </label>
+          <h3>{{ day.nameLang }}</h3>
+        </div>
+        @if (day.enabled) {
+        <div class="time-config">
+          <div class="time-toggle">
+            <label class="radio-label">
+              <input type="radio" [checked]="day.workingAllDay" (change)="toggleAllDay(day)" name="dayType-{{ day.name }}" />
+              <span>Todo el día</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" [checked]="!day.workingAllDay" (change)="toggleAllDay(day)" name="dayType-{{ day.name }}" />
+              <span>Horario partido</span>
+            </label>
+          </div>
+
+          @if (day.workingAllDay) {
+          <div class="time-inputs single-shift">
+            <div class="time-input-group">
+              <label>Desde</label>
+              <input type="time" [(ngModel)]="day.morningStart" />
+            </div>
+            <span class="time-separator">-</span>
+            <div class="time-input-group">
+              <label>Hasta</label>
+              <input type="time" [(ngModel)]="day.afternoonEnd" />
+            </div>
+          </div>
+          } @else {
+          <div class="time-inputs double-shift">
+            <div class="shift">
+              <h4>Mañana</h4>
+              <div class="time-range">
+                <div class="time-input-group">
+                  <label>Desde</label>
+                  <input type="time" [(ngModel)]="day.morningStart" />
+                </div>
+                <span class="time-separator">-</span>
+                <div class="time-input-group">
+                  <label>Hasta</label>
+                  <input type="time" [(ngModel)]="day.morningEnd" />
+                </div>
+              </div>
+            </div>
+            <div class="shift">
+              <h4>Tarde</h4>
+              <div class="time-range">
+                <div class="time-input-group">
+                  <label>Desde</label>
+                  <input type="time" [(ngModel)]="day.afternoonStart" />
+                </div>
+                <span class="time-separator">-</span>
+                <div class="time-input-group">
+                  <label>Hasta</label>
+                  <input type="time" [(ngModel)]="day.afternoonEnd" />
+                </div>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="secondary-btn" routerLink="/workshop-info">Volver</button>
+    <button type="button" class="primary-btn" (click)="onSubmit()" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Guardando...' : 'Guardar Cambios' }}
+    </button>
+  </div>

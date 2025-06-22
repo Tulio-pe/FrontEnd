@@ -1,0 +1,71 @@
+{
+  "workshop_managers": [
+    {
+      "id": 1,
+      "firstName": "Juan",
+      "lastName": "Pérez",
+      "username": "juanp",
+      "email": "juan@talleres.com",
+      "passwordHash": "$2b$10$…"
+    }
+  ],
+  "regions": [
+    { "id": 1, "name": "Lambayeque" }
+  ],
+  "provinces": [
+    { "id": 1, "regionId": 1, "name": "Chiclayo" }
+  ],
+  "districts": [
+    { "id": 1, "provinceId": 1, "name": "Chiclayo" }
+  ],
+  "cities": [
+    { "id": 1, "districtId": 1, "name": "Chiclayo" }
+  ],
+  "workshops": [
+    {
+      "id": 1,
+      "userId": 1,
+      "name": "Taller MotorPro",
+      "photo": "https://picsum.photos/400",
+      "address": "Av. Garcilaso 123",
+      "phone": "+51-987654321",
+      "email": "contacto@motorpro.pe",
+      "cityId": 1
+    }
+  ],
+
+  "schedules": [
+    {
+      "id": 1,
+      "workshopId": 1,
+      "dayOfWeek": 1,
+      "startTime": "08:00",
+      "endTime": "18:00",
+      "enabled": true
+    },
+    {
+      "id": 2, "workshopId": 1, "dayOfWeek": 0, "enabled": false
+    }
+  ],
+  "vehicles": [
+    {
+      "id": 1,
+      "workshopId": 1,
+      "carBrand": "Toyota",
+      "carModel": "Corolla",
+      "fuelType": "Gasolina",
+      "licensePlate": "ABC-123",
+      "year": 2018
+    }
+  ],
+  "repairs": [
+    {
+      "id": 1,
+      "vehicleId": 1,
+      "workshopId": 1,
+      "repairCode": "ABC-123-01",
+      "status": "Por revisar",
+      "updatedAt": "2025-06-22T00:00:00Z"
+    }
+  ]
+}

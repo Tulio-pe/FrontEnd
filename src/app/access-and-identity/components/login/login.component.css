@@ -1,0 +1,256 @@
+.login-container {
+  display: flex;
+  height: 100vh;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.language-selector {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.login-form-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 320px;
+  padding: 20px;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-container {
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tallerazo-logo {
+  max-width: 100px;
+  height: auto;
+}
+
+.form-header h1 {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 500;
+  margin: 0;
+}
+
+.brand-container {
+  flex: 1;
+  background-color: #1d4ed8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 120px 0 0 120px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #333;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #1d4ed8;
+}
+
+.form-control.is-invalid {
+  border-color: #dc3545;
+}
+
+.login-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #1d4ed8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.login-btn:hover:not(:disabled) {
+  background-color: #1739b5;
+}
+
+.login-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.register-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: white;
+  color: #1d4ed8;
+  border: 1px solid #1739b5;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 15px;
+  transition: background-color 0.2s ease;
+}
+
+.register-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.view-workshops-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #f8f9fa;
+  color: #666;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 15px;
+  transition: background-color 0.2s ease;
+}
+
+.view-workshops-btn:hover {
+  background-color: #e9ecef;
+}
+
+.register-question {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+.register-question a {
+  color: #1d4ed8;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-question a:hover {
+  text-decoration: underline;
+}
+
+.brand-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.brand-description {
+  text-align: center;
+  max-width: 80%;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.register-now-btn {
+  padding: 8px 16px;
+  background-color: white;
+  color: #1e51e3;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: background-color 0.2s ease;
+}
+
+.register-now-btn:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+/* Estilos para el language switcher */
+::ng-deep .language-selector .language-button {
+  color: #666;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+::ng-deep .language-selector .language-button:hover {
+  color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .brand-container {
+    border-radius: 0;
+    order: -1;
+    min-height: 200px;
+  }
+
+  .brand-title {
+    font-size: 2rem;
+  }
+
+  .language-selector {
+    top: 10px;
+    left: 10px;
+  }
+
+  .login-form-container {
+    padding: 20px 16px;
+  }
+
+  .login-form {
+    max-width: 100%;
+  }
+}

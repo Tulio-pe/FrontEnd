@@ -1,0 +1,111 @@
+ <form [formGroup]="workshopForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          class="form-control"
+          placeholder="Escribe aquí"
+        >
+      </div>
+        <div class="img-upload">
+        <div class="upload-placeholder">
+          @if (!selectedLogoFile) {
+            <div class="placeholder-content">
+              <span class="placeholder-icon">📷</span>
+            </div>
+          } @else {
+            <img [src]="logoPreview" alt="Logo preview" class="preview-image">
+          }
+        </div>
+        <input type="file" id="logoUpload" (change)="onLogoSelected($event)" accept="image/*" class="file-input">
+        <button type="button" class="upload-btn" (click)="triggerLogoUpload()">Subir logo</button>
+      </div>
+    </div>
+
+    <div class="form-group">      <label for="email">Correo de contacto</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="form-control"
+        placeholder="Escribe aquí"
+      >
+    </div>
+
+    <div class="form-group">      <label for="phone">Teléfono de contacto</label>
+      <input
+        type="tel"
+        id="phone"
+        formControlName="phone"
+        class="form-control"
+        placeholder="Escribe aquí"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        class="form-control"
+        placeholder="Escribe aquí"
+        rows="4"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Servicios</label>      <div class="services-container">
+        <div
+          class="service-chip"
+          [ngClass]="{'selected': isServiceSelected('Lorem ipsum')}"
+          (click)="toggleService('Lorem ipsum')"
+        >
+          Lorem ipsum
+        </div>
+        <div
+          class="service-chip"
+          [ngClass]="{'selected': isServiceSelected('Lorem dolor')}"
+          (click)="toggleService('Lorem dolor')"
+        >
+          Lorem dolor
+        </div>
+        <div
+          class="service-chip"
+          [ngClass]="{'selected': isServiceSelected('Lorem sit')}"
+          (click)="toggleService('Lorem sit')"
+        >
+          Lorem sit
+        </div>
+        <div
+          class="service-chip add-service"
+          (click)="openAddServiceDialog()"
+        >
+          + Agregar servicios
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">      <div class="img-upload-large">
+        <div class="upload-placeholder large-upload">
+          @if (!selectedWorkshopImage) {
+            <div class="placeholder-content">
+              <span class="placeholder-icon">📷</span>
+            </div>
+          } @else {
+            <img [src]="workshopImagePreview" alt="Workshop image preview" class="preview-image">
+          }
+        </div>
+        <input type="file" id="workshopImageUpload" (change)="onWorkshopImageSelected($event)" accept="image/*" class="file-input">
+        <button type="button" class="upload-btn" (click)="triggerWorkshopImageUpload()">Subir imagen del taller</button>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="submit-btn" [disabled]="workshopForm.invalid || isSubmitting">
+        {{ isSubmitting ? 'Procesando...' : 'Confirmar' }}
+      </button>
+    </div>
+  </form>

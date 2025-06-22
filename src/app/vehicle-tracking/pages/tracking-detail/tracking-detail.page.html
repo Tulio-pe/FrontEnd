@@ -1,0 +1,152 @@
+<div class="tracking-detail-container" *ngIf="!loading && tracking; else loadingTemplate">
+  <app-main-header [showBackButton]="true"></app-main-header>
+
+  <main class="main-content">
+    <div class="tracking-header">
+      <div class="header-left">
+        <h1 class="page-title">
+          <mat-icon>location_on</mat-icon>
+          {{ translate('tracking.detail.title') }}
+        </h1>
+      </div>
+      <div class="header-right">
+        <button mat-raised-button color="primary" class="contact-button" (click)="contactWorkshop()">
+          {{ translate('tracking.contact.workshop') }}
+        </button>
+      </div>
+    </div>
+
+    <div class="tracking-content">
+      <!-- Información del vehículo -->
+      <mat-card class="vehicle-info-card">
+        <mat-card-header>
+          <mat-card-title>{{ translate('tracking.vehicle.info') }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="vehicle-details">
+            <div class="detail-row">
+              <span class="label">{{ translate('tracking.vehicle.plate') }}:</span>
+              <span class="value">{{ tracking.vehicleInfo.licensePlate }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">{{ translate('tracking.vehicle.brand') }}:</span>
+              <span class="value">{{ tracking.vehicleInfo.brand }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">{{ translate('tracking.vehicle.model') }}:</span>
+              <span class="value">{{ tracking.vehicleInfo.model }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">{{ translate('tracking.vehicle.year') }}:</span>
+              <span class="value">{{ tracking.vehicleInfo.year }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">{{ translate('tracking.vehicle.color') }}:</span>
+              <span class="value">{{ tracking.vehicleInfo.color }}</span>
+            </div>
+          </div>
+
+          <mat-divider class="section-divider"></mat-divider>
+
+          <div class="status-section">
+            <h3>{{ translate('tracking.current.status') }}</h3>
+            <div class="current-status">
+              <div class="status-info">
+                <h4>{{ tracking.currentStatus.currentStage }}</h4>
+                <p>{{ tracking.currentStatus.description }}</p>
+                <small>{{ translate('tracking.last.updated') }}: {{ tracking.currentStatus.lastUpdated }}</small>
+              </div>
+              <div class="progress-section">
+                <mat-progress-bar
+                  mode="determinate"
+                  [value]="tracking.currentStatus.progress"
+                  class="status-progress">
+                </mat-progress-bar>
+                <span class="progress-text">{{ tracking.currentStatus.progress }}%</span>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="content-grid">
+        <!-- Servicios -->
+        <mat-card class="services-card">
+          <mat-card-header>
+            <mat-card-title>{{ translate('tracking.services') }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="services-list">
+              <div class="service-chips">
+                <span
+                  *ngFor="let service of tracking.services"
+                  class="service-chip"
+                  [ngClass]="getServiceStatusClass(service.status)">
+                  {{ service.name }}
+                </span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Historial de estados -->
+        <mat-card class="status-history-card">
+          <mat-card-header>
+            <mat-card-title>{{ translate('tracking.status.history') }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="status-timeline">
+              <div
+                *ngFor="let status of tracking.statusHistory"
+                class="timeline-item"
+                [ngClass]="{ 'completed': status.completed }">
+                <div class="timeline-marker">
+                  <mat-icon *ngIf="status.completed">check_circle</mat-icon>
+                  <mat-icon *ngIf="!status.completed">radio_button_unchecked</mat-icon>
+                </div>
+                <div class="timeline-content">
+                  <div class="status-card">
+                    <div class="status-image">
+                      <img [src]="status.imageUrl" [alt]="status.title" *ngIf="status.imageUrl" />
+                      <div class="image-placeholder" *ngIf="!status.imageUrl">
+                        <mat-icon>image</mat-icon>
+                      </div>
+                    </div>
+                    <div class="status-info">
+                      <h4>{{ status.title }}</h4>
+                      <p>{{ status.description }}</p>
+                      <small>{{ status.timestamp }}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Información adicional -->
+      <mat-card class="additional-info-card">
+        <mat-card-content>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="info-label">{{ translate('tracking.estimated.completion') }}:</span>
+              <span class="info-value">{{ tracking.estimatedCompletion }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">{{ translate('tracking.code') }}:</span>
+              <span class="info-value tracking-code">{{ tracking.trackingCode }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </main>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <mat-spinner color="primary"></mat-spinner>
+    <p class="loading-text">{{ translate('tracking.loading') }}</p>
+  </div>
+</ng-template>

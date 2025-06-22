@@ -1,0 +1,32 @@
+<header class="main-header">
+  <div class="header-content">
+    <div class="header-left">
+      <button
+        *ngIf="showBackButton"
+        mat-icon-button
+        (click)="goBack()"
+        class="back-button"
+        [attr.aria-label]="translate('button.back')">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <img src="/assets/img/tallerazo-icon-large.png" alt="TallerEnca.pe" class="logo" />
+    </div>
+
+    <div class="header-right">
+      <button mat-stroked-button class="tracking-button" (click)="goToTracking()">
+        <mat-icon>search</mat-icon>
+        {{ translate('button.vehicle.tracking') }}
+      </button>
+
+      <button mat-stroked-button class="manage-workshop-button" (click)="goToLogin()">
+        <mat-icon>business</mat-icon>
+        {{ translate('button.manage.workshop') }}
+      </button>
+
+      <app-language-switcher></app-language-switcher>
+      <div class="user-info">
+        <span>{{ translate('welcome.user') }}</span>
+      </div>
+    </div>
+  </div>
+</header>

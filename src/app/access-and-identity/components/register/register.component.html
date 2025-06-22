@@ -1,0 +1,83 @@
+<div class="register-container">
+  <div class="language-selector">
+    <app-language-switcher></app-language-switcher>
+  </div>
+
+  <div class="brand-container">
+    <h1 class="brand-title">Tallerazo</h1>
+    <p class="brand-description">
+      {{ translate('register.brand.description') }}
+    </p>
+    <button class="login-now-btn" (click)="navigateToLogin()">{{ translate('register.login.now') }}</button>
+  </div>
+
+  <div class="register-form-container">
+    <div class="register-form">
+      <div class="form-header">
+        <div class="logo-container">
+          <img src="/assets/img/tallerazo-icon-large.png" alt="Tallerazo" class="tallerazo-logo">
+        </div>
+        <h1>{{ translate('register.title') }}</h1>
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input
+            type="email"
+            formControlName="email"
+            class="form-control"
+            [placeholder]="translate('register.email.placeholder')"
+            [ngClass]="{'is-invalid': registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)}"
+          >
+          <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)" class="error-message">
+            <span *ngIf="registerForm.get('email')?.hasError('required')">{{ translate('register.email.required') }}</span>
+            <span *ngIf="registerForm.get('email')?.hasError('email')">{{ translate('register.email.invalid') }}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input
+            type="password"
+            formControlName="password"
+            class="form-control"
+            [placeholder]="translate('register.password.placeholder')"
+            [ngClass]="{'is-invalid': registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)}"
+          >
+          <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)" class="error-message">
+            <span *ngIf="registerForm.get('password')?.hasError('required')">{{ translate('register.password.required') }}</span>
+            <span *ngIf="registerForm.get('password')?.hasError('minlength')">{{ translate('register.password.minlength') }}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input
+            type="password"
+            formControlName="confirmPassword"
+            class="form-control"
+            [placeholder]="translate('register.confirm.password.placeholder')"
+            [ngClass]="{'is-invalid': registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched) || registerForm.hasError('passwordsNotMatching')}"
+          >
+          <div *ngIf="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched) || registerForm.hasError('passwordsNotMatching')" class="error-message">
+            <span *ngIf="registerForm.get('confirmPassword')?.hasError('required')">{{ translate('register.confirm.password.required') }}</span>
+            <span *ngIf="registerForm.hasError('passwordsNotMatching')">{{ translate('register.passwords.not.matching') }}</span>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="register-btn"
+          [disabled]="registerForm.invalid || isSubmitting">
+          {{ isSubmitting ? translate('register.submitting') : translate('register.submit') }}
+        </button>
+
+        <div class="login-question">
+          {{ translate('register.have.account') }} <a href="javascript:void(0)" (click)="navigateToLogin()">{{ translate('register.login.link') }}</a>
+        </div>
+
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

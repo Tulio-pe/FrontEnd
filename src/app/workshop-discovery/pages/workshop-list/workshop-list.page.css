@@ -1,0 +1,66 @@
+.workshop-list-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.workshops-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  gap: 16px;
+}
+
+.loading-text {
+  color: #64748b;
+  font-size: 16px;
+  margin: 0;
+}
+
+.no-results {
+  text-align: center;
+  padding: 64px 24px;
+  color: #64748b;
+}
+
+.no-results-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+
+.no-results p {
+  font-size: 18px;
+  margin: 0;
+}
+
+/* Estilos para Material Spinner */
+::ng-deep .mat-mdc-progress-spinner circle {
+  stroke: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 24px 16px;
+  }
+
+  .workshops-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

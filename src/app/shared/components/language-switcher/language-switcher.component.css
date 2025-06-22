@@ -1,0 +1,12 @@
+.language-button {
+  color: #666;
+}
+
+.language-button:hover {
+  color: #1d4ed8;
+}
+
+.active {
+  background-color: #f0f8ff;
+  color: #1d4ed8;
+}

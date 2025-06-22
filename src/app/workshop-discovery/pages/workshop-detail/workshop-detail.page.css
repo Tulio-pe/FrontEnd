@@ -1,0 +1,352 @@
+.workshop-detail-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.workshop-hero {
+  height: 300px;
+  overflow: hidden;
+}
+
+.workshop-image {
+  width: 100%;
+  height: 100%;
+}
+
+.workshop-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.workshop-info {
+  background: white;
+  padding: 24px;
+  border-radius: 16px 16px 0 0;
+  margin-top: -16px;
+  position: relative;
+  z-index: 10;
+}
+
+.workshop-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.company-info {
+  display: flex;
+  gap: 16px;
+  flex: 1;
+}
+
+.company-avatar {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1976d2;
+}
+
+.company-avatar mat-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+}
+
+.company-name {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.rating-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.stars mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: #e2e8f0;
+  transition: color 0.2s ease;
+}
+
+.stars mat-icon.filled {
+  color: #fbbf24;
+}
+
+.rating-text {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.workshop-location {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #64748b;
+  margin: 0;
+}
+
+.workshop-location mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.contact-button {
+  height: 48px;
+  padding: 0 24px;
+  background-color: #1d4ed8 !important;
+  color: white !important;
+  border-radius: 8px;
+  font-weight: 500;
+  text-transform: none;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(29, 78, 216, 0.2);
+  transition: all 0.2s ease;
+}
+
+.contact-button:hover {
+  background-color: #1e40af !important;
+  box-shadow: 0 4px 8px rgba(29, 78, 216, 0.3);
+  transform: translateY(-1px);
+}
+
+.contact-button mat-icon {
+  margin-right: 8px;
+  color: white !important;
+}
+
+/* Forzar el color del texto del botón */
+.contact-button .mdc-button__label {
+  color: white !important;
+}
+
+::ng-deep .contact-button .mat-mdc-button-touch-target {
+  background-color: transparent;
+}
+
+::ng-deep .contact-button .mdc-button__ripple {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.workshop-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+section h2 {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.description-section p {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.specialty-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.specialty-chip {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  color: #1d4ed8;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid rgba(29, 78, 216, 0.1);
+}
+
+.contact-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #64748b;
+}
+
+.contact-item mat-icon {
+  color: #1d4ed8;
+}
+
+.contact-item a {
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}
+
+.schedule-card,
+.services-card {
+  height: fit-content;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.schedule-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.schedule-item .day {
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.schedule-item .hours {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.schedule-item .hours.closed {
+  color: #ef4444;
+}
+
+.services-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.service-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.service-item:last-child {
+  border-bottom: none;
+}
+
+.service-info h4 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.service-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.service-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.service-details .time {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.service-details .price {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 16px;
+}
+
+.loading-text {
+  color: #64748b;
+  font-size: 16px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .workshop-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .workshop-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .action-buttons {
+    justify-content: stretch;
+  }
+
+  .contact-button {
+    width: 100%;
+  }
+
+  .workshop-info {
+    padding: 16px;
+  }
+}

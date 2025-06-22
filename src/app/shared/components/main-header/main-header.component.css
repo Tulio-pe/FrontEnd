@@ -1,0 +1,102 @@
+.main-header {
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.back-button {
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  color: #1d4ed8;
+  background-color: rgba(29, 78, 216, 0.1);
+}
+
+.logo {
+  height: 40px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tracking-button,
+.manage-workshop-button {
+  border: 2px solid #1d4ed8;
+  color: #1d4ed8;
+  border-radius: 8px;
+  font-weight: 500;
+  text-transform: none;
+  padding: 0 16px;
+  height: 40px;
+  transition: all 0.2s ease;
+}
+
+.tracking-button:hover,
+.manage-workshop-button:hover {
+  background-color: #1d4ed8;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(29, 78, 216, 0.2);
+}
+
+.tracking-button mat-icon,
+.manage-workshop-button mat-icon {
+  margin-right: 8px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.user-info {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    padding: 12px 16px;
+  }
+
+  .header-right {
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-end;
+  }
+
+  .tracking-button,
+  .manage-workshop-button {
+    font-size: 12px;
+    padding: 0 12px;
+    height: 36px;
+  }
+
+  .user-info {
+    font-size: 12px;
+    width: 100%;
+    text-align: right;
+  }
+}

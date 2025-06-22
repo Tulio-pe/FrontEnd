@@ -1,0 +1,75 @@
+<div class="dialog-container">
+  <h2 mat-dialog-title>{{ translate('dialog.add.vehicle.title') }}</h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="vehicleForm" class="vehicle-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ translate('dialog.plate.number') }}</mat-label>
+        <input matInput formControlName="plateNumber" placeholder="ABC-123" style="text-transform: uppercase;">
+        <mat-error *ngIf="vehicleForm.get('plateNumber')?.hasError('required')">
+          {{ translate('dialog.plate.required') }}
+        </mat-error>
+        <mat-error *ngIf="vehicleForm.get('plateNumber')?.hasError('pattern')">
+          {{ translate('dialog.plate.format') }}
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ translate('dialog.brand') }}</mat-label>
+          <input matInput formControlName="brand">
+          <mat-error *ngIf="vehicleForm.get('brand')?.hasError('required')">
+            {{ translate('dialog.brand.required') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ translate('dialog.model') }}</mat-label>
+          <input matInput formControlName="model">
+          <mat-error *ngIf="vehicleForm.get('model')?.hasError('required')">
+            {{ translate('dialog.model.required') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ translate('dialog.year') }}</mat-label>
+          <input matInput type="number" formControlName="year">
+          <mat-error *ngIf="vehicleForm.get('year')?.hasError('required')">
+            {{ translate('dialog.year.required') }}
+          </mat-error>
+          <mat-error *ngIf="vehicleForm.get('year')?.hasError('min') || vehicleForm.get('year')?.hasError('max')">
+            {{ translate('dialog.year.range') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ translate('dialog.color') }}</mat-label>
+          <input matInput formControlName="color">
+          <mat-error *ngIf="vehicleForm.get('color')?.hasError('required')">
+            {{ translate('dialog.color.required') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ translate('dialog.vin') }} ({{ translate('dialog.optional') }})</mat-label>
+        <input matInput formControlName="vin">
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()" [disabled]="isSubmitting">
+      {{ translate('dialog.cancel') }}
+    </button>
+    <button mat-raised-button
+            color="primary"
+            (click)="onSubmit()"
+            [disabled]="vehicleForm.invalid || isSubmitting"
+            class="add-button">
+      {{ isSubmitting ? translate('dialog.adding') : translate('dialog.add') }}
+    </button>
+  </mat-dialog-actions>
+</div>

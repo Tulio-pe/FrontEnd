@@ -1,0 +1,441 @@
+.tracking-detail-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.tracking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.page-title mat-icon {
+  color: #1d4ed8;
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+}
+
+.contact-button {
+  background-color: #1d4ed8 !important;
+  color: white !important;
+  border-radius: 8px;
+  font-weight: 500;
+  text-transform: none;
+  padding: 0 24px;
+  height: 48px;
+}
+
+.tracking-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.vehicle-info-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.vehicle-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+  background-color: #f8fafc;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.detail-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.value {
+  font-size: 16px;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.section-divider {
+  margin: 32px 0;
+}
+
+.status-section h3 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.current-status {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.status-info {
+  flex: 1;
+}
+
+.status-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.status-info h4 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.low {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.status-badge.medium {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.high {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.status-badge.completed {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.status-info p {
+  margin: 0 0 8px 0;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.status-info small {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.progress-section {
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.status-progress {
+  height: 8px;
+  border-radius: 4px;
+}
+
+.progress-text {
+  text-align: center;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.services-card,
+.status-history-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.service-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.service-chip {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.service-chip.completed {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  color: #166534;
+  border: 1px solid rgba(22, 101, 52, 0.2);
+}
+
+.service-chip.in-progress {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #92400e;
+  border: 1px solid rgba(146, 64, 14, 0.2);
+}
+
+.service-chip.pending {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  color: #475569;
+  border: 1px solid rgba(71, 85, 105, 0.2);
+}
+
+.status-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 16px;
+  position: relative;
+}
+
+.timeline-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 48px;
+  bottom: -24px;
+  width: 2px;
+  background: #e2e8f0;
+}
+
+.timeline-item.completed:not(:last-child)::after {
+  background: #1d4ed8;
+}
+
+.timeline-marker {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.check-icon {
+  color: #1d4ed8;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.pending-icon {
+  color: #cbd5e1;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.status-card {
+  background: white;
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+}
+
+.status-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.status-icon-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border-radius: 8px;
+}
+
+.status-custom-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  color: #1d4ed8;
+}
+
+.status-info h4 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.status-info p {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.status-info small {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.additional-info-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.info-label {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.info-value {
+  font-size: 16px;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.tracking-code {
+  font-family: monospace;
+  background: #1d4ed8;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 16px;
+}
+
+.loading-text {
+  color: #64748b;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Estilos para Material Progress Bar */
+::ng-deep .mat-mdc-progress-bar .mdc-linear-progress__bar-inner {
+  border-color: #1d4ed8;
+}
+
+::ng-deep .mat-mdc-progress-bar .mdc-linear-progress__buffer-bar {
+  background-color: rgba(29, 78, 216, 0.1);
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 24px 16px;
+  }
+
+  .tracking-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .current-status {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .vehicle-details {
+    grid-template-columns: 1fr;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .status-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .status-image {
+    align-self: center;
+  }
+}

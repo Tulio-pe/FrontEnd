@@ -1,0 +1,15 @@
+<mat-button-toggle-group
+  [(ngModel)]="selectedTab"
+  (change)="onTabChange($event)"
+  class="pill-toggle-group"
+>
+  <mat-button-toggle value="perfil">Perfil</mat-button-toggle>
+  <mat-button-toggle value="horarios">Horarios</mat-button-toggle>
+</mat-button-toggle-group>
+
+<div *ngIf="selectedTab === 'perfil'" class="container-section">
+<app-workshop-info/>
+</div>
+<div *ngIf="selectedTab === 'horarios'" class="container-section">
+<app-schedule-hours/>
+</div>

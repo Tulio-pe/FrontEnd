@@ -11,6 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # 1) Prepara entorno Node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20          # o la versión que uses
+      # 2) Instala dependencias del proyecto
+      - run: npm ci                 # respeta package-lock.json
       - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

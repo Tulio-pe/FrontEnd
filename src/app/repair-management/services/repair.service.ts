@@ -5,11 +5,13 @@ import type { Repair, CreateRepairRequest, RepairStatus } from "../models"
 
 /**
  * Service for managing repair operations and status tracking.
+ * Handles CRUD operations for repairs and provides real-time updates.
  */
 @Injectable({
   providedIn: "root",
 })
 export class RepairService {
+  // BehaviorSubject to provide real-time updates to components
   private repairsSubject = new BehaviorSubject<Repair[]>([
     {
       id: "1",

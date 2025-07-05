@@ -18,6 +18,130 @@ A comprehensive Angular application for automotive workshop management, featurin
 ### Core Features
 - **Multi-language Support**: Spanish/English localization
 - **Responsive Design**: Mobile-first Angular Material design
+- **Authentication**: Secure login with route guards and JWT tokens
+- **Real-time Updates**: RxJS-based reactive data flow
+
+## 🛠️ Technology Stack
+
+- **Frontend**: Angular 19, TypeScript
+- **UI Framework**: Angular Material 19
+- **State Management**: RxJS with BehaviorSubjects
+- **Routing**: Angular Router with lazy loading
+- **Forms**: Reactive Forms with validation
+- **Internationalization**: Custom i18n service
+- **Build Tools**: Angular CLI
+
+## 📁 Project Structure
+
+```
+src/app/
+├── access-and-identity/     # Authentication module
+│   ├── components/          # Login/register components
+│   ├── models/             # User and auth models
+│   ├── services/           # Auth service, guards, interceptors
+│   └── pages/              # Authentication pages
+├── repair-management/       # Workshop operations module
+│   ├── components/         # Repair dialogs and forms
+│   ├── models/             # Repair, vehicle, and service models
+│   ├── pages/              # Dashboard, cars, configuration pages
+│   └── services/           # Repair and vehicle services
+├── vehicle-tracking/        # Customer tracking module
+│   ├── models/             # Tracking data models
+│   ├── pages/              # Tracking input and detail pages
+│   └── services/           # Vehicle tracking service
+├── workshop-discovery/      # Public workshop directory
+│   ├── components/         # Workshop cards and filters
+│   ├── models/             # Workshop data models
+│   ├── pages/              # Workshop list and detail pages
+│   └── services/           # Workshop discovery service
+└── shared/                 # Shared components and services
+    ├── components/         # Reusable UI components
+    └── services/           # I18n, API services
+```
+
+## 🔧 Core Services
+
+### Authentication (`AuthService`)
+- Mock authentication with token management
+- Route protection and automatic token injection
+- User session management
+
+### Repair Management (`RepairService`)
+- CRUD operations for repair orders
+- Real-time status updates via BehaviorSubjects
+- Service workflow management
+
+### Vehicle Tracking (`VehicleTrackingService`)
+- Customer tracking code validation
+- Real-time repair progress data
+- Workshop contact information
+
+### Workshop Discovery (`WorkshopDiscoveryService`)
+- Workshop search and filtering
+- Location-based services
+- Service catalog management
+
+## 📊 Data Models
+
+### Key Interfaces
+
+**VehicleTracking**: Customer-facing tracking data
+- Vehicle info, current status, service history
+- Workshop contact, estimated completion
+
+**Repair**: Workshop repair orders
+- Vehicle details, services, status tracking
+- Timestamps, completion estimates
+
+**Vehicle**: Registered vehicle information
+- Basic vehicle data, repair status
+
+**Workshop**: Public workshop profiles
+- Business info, services, location, ratings
+
+## 🎯 Development Workflow
+
+### Authentication Flow
+1. User submits credentials → AuthService validation
+2. Token storage → AuthGuard route protection
+3. AuthInterceptor adds token to API requests
+
+### Repair Management Flow
+1. Create repair order with vehicle/services
+2. Track status through workflow stages
+3. Update progress and notify customers
+4. Complete and deliver vehicle
+
+### Vehicle Tracking Flow
+1. Customer receives tracking code
+2. Code validation through service
+3. Display tracking information
+4. Real-time updates and workshop contact
+
+## 🌐 Internationalization
+
+- **Languages**: English (en), Spanish (es)
+- **Translation Files**: `src/assets/i18n/`
+- **Service**: `I18nService` handles language switching
+
+## 📱 UI Components
+
+### Shared Components
+- **MainHeader**: Navigation with language switcher
+- **WorkshopSidebar**: Workshop management navigation
+- **LanguageSwitcher**: Multi-language toggle
+
+### Page Components
+- **DashboardPage**: Repair management with status tabs
+- **TrackingInputPage**: Customer tracking code entry
+- **TrackingDetailPage**: Comprehensive repair status display
+
+## 🔄 State Management
+
+- **BehaviorSubjects**: Real-time data streams
+- **Reactive Forms**: Form state with validation
+- **Route State**: URL-based navigation
+- **Local Storage**: Token and preferences persistence
 - **Authentication**: User login/registration system
 - **Workshop Onboarding**: Setup process for new workshops
 

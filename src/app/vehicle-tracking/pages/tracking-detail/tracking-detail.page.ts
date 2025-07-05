@@ -13,6 +13,10 @@ import  { VehicleTrackingService } from "../../services/vehicle-tracking.service
 import  { VehicleTracking } from "../../models"
 import  { I18nService } from "../../../shared/services/i18n.service"
 
+/**
+ * Vehicle tracking detail page component.
+ * Displays comprehensive tracking information for a specific vehicle.
+ */
 @Component({
   selector: "app-tracking-detail",
   standalone: true,
@@ -31,8 +35,11 @@ import  { I18nService } from "../../../shared/services/i18n.service"
   styleUrls: ["./tracking-detail.page.css"],
 })
 export default class TrackingDetailPage implements OnInit {
+  // Current tracking data
   tracking: VehicleTracking | null = null
+  // Loading state for data fetching
   loading = true
+  // Tracking code from route parameters
   trackingCode = ""
 
   constructor(
@@ -43,14 +50,20 @@ export default class TrackingDetailPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Get tracking code from route parameters
     this.trackingCode = this.route.snapshot.paramMap.get("code") || ""
     if (this.trackingCode) {
       this.loadTracking()
     } else {
+      // Redirect if no tracking code provided
       this.router.navigate(["/vehicle-tracking"])
     }
   }
 
+  /**
+   * Loads tracking data from service.
+   * Redirects to input page if tracking code not found.
+   */
   private loadTracking() {
     this.trackingService.getVehicleTracking(this.trackingCode).subscribe({
       next: (tracking) => {
@@ -65,12 +78,18 @@ export default class TrackingDetailPage implements OnInit {
     })
   }
 
+  /**
+   * Opens phone dialer with workshop contact number.
+   */
   contactWorkshop() {
     if (this.tracking?.workshopInfo.phone) {
       window.open(`tel:${this.tracking.workshopInfo.phone}`)
     }
   }
 
+  /**
+   * Returns CSS class for service status styling.
+   */
   getServiceStatusClass(status: string): string {
     switch (status) {
       case "completed":
@@ -84,10 +103,16 @@ export default class TrackingDetailPage implements OnInit {
     }
   }
 
+  /**
+   * Translates text using i18n service.
+   */
   translate(key: string): string {
     return this.i18nService.translate(key)
   }
 
+  /**
+   * Translates service status with proper mapping.
+   */
   translateServiceStatus(status: string): string {
     const statusMap: { [key: string]: string } = {
       completed: "tracking.status.completed",

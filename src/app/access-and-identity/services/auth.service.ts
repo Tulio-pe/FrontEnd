@@ -24,7 +24,11 @@ export class AuthService {
   }
   
   /**
-   * Authenticates user with email and password (mock implementation).
+   * Authenticates user with email and password.
+   * Currently uses mock data for development.
+   * @param email - User's email address
+   * @param password - User's password
+   * @returns Observable with authentication response
    */
   login(email: string, password: string): Observable<AuthResponse> {
     // Simulación de login para desarrollo

@@ -12,6 +12,10 @@ import { MainHeaderComponent } from "../../../shared/components/main-header/main
 import  { VehicleTrackingService } from "../../services/vehicle-tracking.service"
 import  { I18nService } from "../../../shared/services/i18n.service"
 
+/**
+ * Vehicle tracking input page component.
+ * Allows customers to enter tracking codes to view their vehicle's repair status.
+ */
 @Component({
   selector: "app-tracking-input",
   standalone: true,
@@ -30,7 +34,9 @@ import  { I18nService } from "../../../shared/services/i18n.service"
   styleUrls: ["./tracking-input.page.css"],
 })
 export default class TrackingInputPage {
+  // Form for tracking code input
   trackingForm: FormGroup
+  // Loading state for form submission
   loading = false
 
   constructor(
@@ -40,11 +46,16 @@ export default class TrackingInputPage {
     private snackBar: MatSnackBar,
     private i18nService: I18nService,
   ) {
+    // Initialize form with validation rules
     this.trackingForm = this.fb.group({
       code: ["", [Validators.required, Validators.minLength(6)]],
     })
   }
 
+  /**
+   * Handles form submission and tracking code validation.
+   * Navigates to detail page if code is valid.
+   */
   onSubmit() {
     if (this.trackingForm.valid) {
       this.loading = true
@@ -54,6 +65,7 @@ export default class TrackingInputPage {
         next: (isValid) => {
           this.loading = false
           if (isValid) {
+            // Navigate to tracking detail page
             this.router.navigate(["/vehicle-tracking", code])
           } else {
             this.showError("Código de seguimiento no válido")
@@ -67,6 +79,9 @@ export default class TrackingInputPage {
     }
   }
 
+  /**
+   * Displays error message using Material snackbar.
+   */
   private showError(message: string) {
     this.snackBar.open(message, "Cerrar", {
       duration: 3000,
@@ -75,11 +90,16 @@ export default class TrackingInputPage {
     })
   }
 
+  /**
+   * Translates text using i18n service.
+   */
   translate(key: string): string {
     return this.i18nService.translate(key)
   }
 
-  // Método para testing - agregar códigos de ejemplo
+  /**
+   * Helper method for testing - fills form with example codes.
+   */
   useExampleCode(code: string) {
     this.trackingForm.patchValue({ code })
   }

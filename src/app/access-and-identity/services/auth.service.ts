@@ -5,6 +5,10 @@ import { tap } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { AuthResponse } from '../models/auth-response.model';
 
+/**
+ * Authentication service for user login, registration, and token management.
+ * Currently uses mock data for development.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +22,10 @@ export class AuthService {
   constructor(private http: HttpClient) {
     this.loadCurrentUser();
   }
+  
+  /**
+   * Authenticates user with email and password (mock implementation).
+   */
   login(email: string, password: string): Observable<AuthResponse> {
     // Simulación de login para desarrollo
     const mockResponse: AuthResponse = {
@@ -46,6 +54,10 @@ export class AuthService {
       );
     */
   }
+  
+  /**
+   * Registers new user (mock implementation).
+   */
   register(userData: any): Observable<AuthResponse> {
     // Simulación de registro para desarrollo
     const mockResponse: AuthResponse = {
@@ -75,19 +87,31 @@ export class AuthService {
     */
   }
 
+  /**
+   * Logs out the current user and removes the token.
+   */
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     this.currentUserSubject.next(null);
   }
 
+  /**
+   * Checks if the user is authenticated based on the presence of a token.
+   */
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
 
+  /**
+   * Retrieves the authentication token from local storage.
+   */
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
 
+  /**
+   * Saves workshop schedule configuration.
+   */
   saveScheduleHours(scheduleData: any): Observable<any> {
     // Simulation for development
     return new Observable<any>(observer => {

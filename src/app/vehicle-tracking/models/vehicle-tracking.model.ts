@@ -1,3 +1,6 @@
+/**
+ * Vehicle tracking models for customer-facing repair status tracking.
+ */
 export interface VehicleTracking {
   id: string
   trackingCode: string

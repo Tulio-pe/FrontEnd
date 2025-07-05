@@ -3,10 +3,15 @@ import { Observable, of } from "rxjs"
 import { delay } from "rxjs/operators"
 import  { VehicleTracking, TrackingCodeRequest } from "../models"
 
+/**
+ * Service for vehicle tracking operations. 
+ * Allows customers to track repair progress using tracking codes.
+ */
 @Injectable({
   providedIn: "root",
 })
 export class VehicleTrackingService {
+  // Mock data for development
   private mockTrackingData: { [key: string]: VehicleTracking } = {
     TRK001234: {
       id: "1",
@@ -170,6 +175,9 @@ export class VehicleTrackingService {
 
   constructor() {}
 
+  /**
+   * Retrieves vehicle tracking information by code.
+   */
   getVehicleTracking(code: string): Observable<VehicleTracking> {
     return new Observable((observer) => {
       // Simular delay de red
@@ -185,6 +193,9 @@ export class VehicleTrackingService {
     })
   }
 
+  /**
+   * Validates if a tracking code exists.
+   */
   validateTrackingCode(request: TrackingCodeRequest): Observable<boolean> {
     return of(!!this.mockTrackingData[request.code]).pipe(delay(500))
   }

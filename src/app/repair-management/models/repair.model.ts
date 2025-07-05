@@ -1,3 +1,6 @@
+/**
+ * Repair management interfaces and types.
+ */
 export interface Repair {
   id: string
   plateNumber: string

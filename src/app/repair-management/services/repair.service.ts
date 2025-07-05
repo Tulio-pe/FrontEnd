@@ -3,6 +3,9 @@ import { BehaviorSubject, type Observable, of } from "rxjs"
 import { delay, map } from "rxjs/operators"
 import type { Repair, CreateRepairRequest, RepairStatus } from "../models"
 
+/**
+ * Service for managing repair operations and status tracking.
+ */
 @Injectable({
   providedIn: "root",
 })
@@ -59,6 +62,9 @@ export class RepairService {
     return this.repairs$.pipe(map((repairs) => repairs.filter((repair) => repair.status === status)))
   }
 
+  /**
+   * Creates a new repair order.
+   */
   createRepair(request: CreateRepairRequest): Observable<Repair> {
     const newRepair: Repair = {
       id: Date.now().toString(),
@@ -83,6 +89,9 @@ export class RepairService {
     return of(newRepair).pipe(delay(500))
   }
 
+  /**
+   * Updates repair status to next stage.
+   */
   updateRepairStatus(repairId: string, status: RepairStatus): Observable<Repair> {
     const currentRepairs = this.repairsSubject.value
     const updatedRepairs = currentRepairs.map((repair) =>

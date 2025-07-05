@@ -11,6 +11,9 @@ import { CreateVehicleDialogComponent } from "../components/create-vehicle-dialo
 import  { Vehicle } from "../models"
 import  { I18nService } from "../../shared/services/i18n.service"
 
+/**
+ * Vehicle management page for workshop operations.
+ */
 @Component({
   selector: "app-cars",
   standalone: true,
@@ -32,6 +35,9 @@ export class CarsPage implements OnInit {
 
   ngOnInit() {}
 
+  /**
+   * Opens dialog to register new vehicle.
+   */
   openCreateVehicleDialog() {
     const dialogRef = this.dialog.open(CreateVehicleDialogComponent, {
       width: "500px",
@@ -45,6 +51,9 @@ export class CarsPage implements OnInit {
     })
   }
 
+  /**
+   * Initiates repair process for selected vehicle.
+   */
   startRepair(vehicle: Vehicle) {
     // Crear una reparación automáticamente para este vehículo
     const repairRequest = {

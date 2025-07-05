@@ -12,6 +12,10 @@ import { CreateRepairDialogComponent } from "../components/create-repair-dialog/
 import  { Repair, RepairStatus } from "../models"
 import  { I18nService } from "../../shared/services/i18n.service"
 
+/**
+ * Dashboard page for managing workshop repairs.
+ * Provides tabbed interface organized by repair status.
+ */
 @Component({
   selector: "app-dashboard",
   standalone: true,
@@ -52,6 +56,9 @@ export class DashboardPage implements OnInit {
     return this.repairService.getRepairsByStatus(status)
   }
 
+  /**
+   * Opens dialog to create new repair order.
+   */
   openCreateRepairDialog() {
     const dialogRef = this.dialog.open(CreateRepairDialogComponent, {
       width: "600px",
@@ -66,6 +73,9 @@ export class DashboardPage implements OnInit {
     })
   }
 
+  /**
+   * Changes repair status to next stage in workflow.
+   */
   changeRepairStatus(repair: Repair) {
     const currentIndex = this.repairStatuses.findIndex((s) => s.status === repair.status)
     const nextIndex = (currentIndex + 1) % this.repairStatuses.length

@@ -2,7 +2,7 @@
 
 A comprehensive Angular application for automotive workshop management, featuring repair tracking, vehicle management, and customer-facing vehicle tracking capabilities.
 
-## 🚀 Features
+## Features
 
 ### Workshop Management
 - **Dashboard**: Repair status tracking with tabbed interface (pending review, in review, reviewed, delivered)
@@ -21,7 +21,7 @@ A comprehensive Angular application for automotive workshop management, featurin
 - **Authentication**: Secure login with route guards and JWT tokens
 - **Real-time Updates**: RxJS-based reactive data flow
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Frontend**: Angular 19, TypeScript
 - **UI Framework**: Angular Material 19
@@ -31,7 +31,7 @@ A comprehensive Angular application for automotive workshop management, featurin
 - **Internationalization**: Custom i18n service
 - **Build Tools**: Angular CLI
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/app/
@@ -59,7 +59,7 @@ src/app/
     └── services/           # I18n, API services
 ```
 
-## 🔧 Core Services
+## Core Services
 
 ### Authentication (`AuthService`)
 - Mock authentication with token management
@@ -81,7 +81,7 @@ src/app/
 - Location-based services
 - Service catalog management
 
-## 📊 Data Models
+## Data Models
 
 ### Key Interfaces
 
@@ -99,7 +99,7 @@ src/app/
 **Workshop**: Public workshop profiles
 - Business info, services, location, ratings
 
-## 🎯 Development Workflow
+## Development Workflow
 
 ### Authentication Flow
 1. User submits credentials → AuthService validation
@@ -118,13 +118,13 @@ src/app/
 3. Display tracking information
 4. Real-time updates and workshop contact
 
-## 🌐 Internationalization
+## Internationalization
 
 - **Languages**: English (en), Spanish (es)
 - **Translation Files**: `src/assets/i18n/`
 - **Service**: `I18nService` handles language switching
 
-## 📱 UI Components
+## UI Components
 
 ### Shared Components
 - **MainHeader**: Navigation with language switcher
@@ -136,7 +136,7 @@ src/app/
 - **TrackingInputPage**: Customer tracking code entry
 - **TrackingDetailPage**: Comprehensive repair status display
 
-## 🔄 State Management
+## State Management
 
 - **BehaviorSubjects**: Real-time data streams
 - **Reactive Forms**: Form state with validation
@@ -145,7 +145,7 @@ src/app/
 - **Authentication**: User login/registration system
 - **Workshop Onboarding**: Setup process for new workshops
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Frontend**: Angular 19.2.0
 - **UI Framework**: Angular Material 19.2.18
@@ -154,7 +154,7 @@ src/app/
 - **Internationalization**: ngx-translate
 - **Development**: TypeScript 5.7.2
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/app/
@@ -179,7 +179,7 @@ src/app/
     └── services/           # i18n, fake API services
 ```
 
-## 🔧 Installation & Setup
+## Installation & Setup
 
 1. **Clone the repository**
 ```bash
@@ -236,7 +236,7 @@ interface VehicleTracking {
 }
 ```
 
-## 🌐 Routing
+## Routing
 
 - `/workshop/login` - Workshop login
 - `/workshop/register` - Workshop registration
@@ -248,7 +248,7 @@ interface VehicleTracking {
 - `/vehicle-tracking` - Customer tracking input
 - `/vehicle-tracking/:code` - Tracking details
 
-## 🔑 Environment Configuration
+## Environment Configuration
 
 The application currently uses mock data for development. To connect to a real backend:
 
@@ -257,7 +257,7 @@ The application currently uses mock data for development. To connect to a real b
 3. Configure authentication endpoints
 4. Set up proper error handling
 
-## 🎨 UI/UX Features
+## UI/UX Features
 
 - **Material Design**: Consistent Angular Material components
 - **Responsive Layout**: Mobile-optimized interface
@@ -266,20 +266,20 @@ The application currently uses mock data for development. To connect to a real b
 - **Status Chips**: Color-coded status indicators
 - **Modal Dialogs**: Create repair/vehicle forms
 
-## 🧪 Development Features
+## Development Features
 
 - **Mock Services**: Simulated backend responses
 - **Example Data**: Pre-populated tracking codes for testing
 - **Delay Simulation**: Realistic loading states
 - **Error Handling**: User-friendly error messages
 
-## 📱 Sample Tracking Codes
+## Sample Tracking Codes
 
 For testing the vehicle tracking feature:
 - `TRK001234` - In-progress repair (Toyota Corolla)
 - `TRK005678` - Completed service (Honda Civic)
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
 - Real-time notifications
 - Payment integration

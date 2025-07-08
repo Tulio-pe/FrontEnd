@@ -1,54 +1,117 @@
 import { Injectable } from "@angular/core"
-import { BehaviorSubject, type Observable, of } from "rxjs"
-import { delay } from "rxjs/operators"
-import type { Vehicle, CreateVehicleRequest } from "../models"
+import { BehaviorSubject,  Observable } from "rxjs"
+import { tap, catchError } from "rxjs/operators"
+import  { HttpClient } from "@angular/common/http"
+import  { Vehicle, CreateVehicleRequest } from "../models"
+import { environment } from "../../../environment/environment"
 
 @Injectable({
   providedIn: "root",
 })
 export class VehicleService {
-  private vehiclesSubject = new BehaviorSubject<Vehicle[]>([
-    {
-      id: "1",
-      plateNumber: "XYZ-789",
-      brand: "Honda",
-      model: "Civic",
-      year: 2019,
-      color: "Azul",
-      createdAt: "2024-01-14T15:30:00Z",
-      isInRepair: false,
-    },
-  ])
-
+  private apiUrl = environment.apiUrl
+  private vehiclesSubject = new BehaviorSubject<Vehicle[]>([])
   public vehicles$ = this.vehiclesSubject.asObservable()
+
+  constructor(private http: HttpClient) {
+    this.loadVehicles()
+  }
+
+  /**
+   * Loads all vehicles from backend.
+   */
+  private loadVehicles(): void {
+    this.http.get<Vehicle[]>(`${this.apiUrl}${environment.endpoints.cars}`).subscribe({
+      next: (vehicles) => this.vehiclesSubject.next(vehicles),
+      error: (error) => {
+        console.error("Error loading vehicles:", error)
+        this.vehiclesSubject.next([])
+      },
+    })
+  }
 
   getVehicles(): Observable<Vehicle[]> {
     return this.vehicles$
   }
 
+  /**
+   * Gets vehicle by plate using your backend endpoint.
+   */
+  getVehicleByPlate(plate: string): Observable<Vehicle> {
+    return this.http.get<Vehicle>(`${this.apiUrl}${environment.endpoints.cars}/${plate}`).pipe(
+      catchError((error) => {
+        console.error("Error fetching vehicle by plate:", error)
+        throw error
+      }),
+    )
+  }
+
   createVehicle(request: CreateVehicleRequest): Observable<Vehicle> {
-    const newVehicle: Vehicle = {
-      id: Date.now().toString(),
-      ...request,
-      createdAt: new Date().toISOString(),
-      isInRepair: false,
-    }
-
-    const currentVehicles = this.vehiclesSubject.value
-    this.vehiclesSubject.next([...currentVehicles, newVehicle])
-
-    return of(newVehicle).pipe(delay(500))
+    return this.http.post<Vehicle>(`${this.apiUrl}${environment.endpoints.cars}`, request).pipe(
+      tap((newVehicle) => {
+        // Actualizar el BehaviorSubject
+        const currentVehicles = this.vehiclesSubject.value
+        this.vehiclesSubject.next([...currentVehicles, newVehicle])
+      }),
+      catchError((error) => {
+        console.error("Error creating vehicle:", error)
+        throw error
+      }),
+    )
   }
 
   updateVehicleRepairStatus(vehicleId: string, isInRepair: boolean): Observable<Vehicle> {
-    const currentVehicles = this.vehiclesSubject.value
-    const updatedVehicles = currentVehicles.map((vehicle) =>
-      vehicle.id === vehicleId ? { ...vehicle, isInRepair } : vehicle,
+    return this.http
+      .put<Vehicle>(`${this.apiUrl}${environment.endpoints.cars}/${vehicleId}/repair-status`, {
+        isInRepair,
+      })
+      .pipe(
+        tap((updatedVehicle) => {
+          // Actualizar el BehaviorSubject
+          const currentVehicles = this.vehiclesSubject.value
+          const updatedVehicles = currentVehicles.map((vehicle) =>
+            vehicle.id === vehicleId ? updatedVehicle : vehicle,
+          )
+          this.vehiclesSubject.next(updatedVehicles)
+        }),
+        catchError((error) => {
+          console.error("Error updating vehicle repair status:", error)
+          throw error
+        }),
+      )
+  }
+
+  /**
+   * Updates vehicle information.
+   */
+  updateVehicle(vehicleId: string, vehicleData: Partial<Vehicle>): Observable<Vehicle> {
+    return this.http.put<Vehicle>(`${this.apiUrl}${environment.endpoints.cars}/${vehicleId}`, vehicleData).pipe(
+      tap((updatedVehicle) => {
+        const currentVehicles = this.vehiclesSubject.value
+        const updatedVehicles = currentVehicles.map((vehicle) => (vehicle.id === vehicleId ? updatedVehicle : vehicle))
+        this.vehiclesSubject.next(updatedVehicles)
+      }),
+      catchError((error) => {
+        console.error("Error updating vehicle:", error)
+        throw error
+      }),
     )
+  }
 
-    this.vehiclesSubject.next(updatedVehicles)
-
-    const updatedVehicle = updatedVehicles.find((v) => v.id === vehicleId)!
-    return of(updatedVehicle).pipe(delay(300))
+  /**
+   * Deletes a vehicle.
+   */
+  deleteVehicle(vehicleId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}${environment.endpoints.cars}/${vehicleId}`).pipe(
+      tap(() => {
+        const currentVehicles = this.vehiclesSubject.value
+        const filteredVehicles = currentVehicles.filter((vehicle) => vehicle.id !== vehicleId)
+        this.vehiclesSubject.next(filteredVehicles)
+      }),
+      catchError((error) => {
+        console.error("Error deleting vehicle:", error)
+        throw error
+      }),
+    )
   }
 }

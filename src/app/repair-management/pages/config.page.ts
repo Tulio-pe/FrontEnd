@@ -1,4 +1,4 @@
-import { Component,  OnInit, inject, ViewChild,  ElementRef } from "@angular/core"
+import { Component, type OnInit, inject, ViewChild, type ElementRef } from "@angular/core"
 import { CommonModule } from "@angular/common"
 import { MatTabsModule } from "@angular/material/tabs"
 import { MatButtonModule } from "@angular/material/button"
@@ -9,12 +9,13 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle"
 import { MatChipsModule } from "@angular/material/chips"
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner"
 import { MatSnackBarModule, MatSnackBar } from "@angular/material/snack-bar"
-import { FormBuilder,  FormGroup, Validators, ReactiveFormsModule, FormsModule } from "@angular/forms"
+import { FormBuilder, type FormGroup, Validators, ReactiveFormsModule, FormsModule } from "@angular/forms"
 import { WorkshopConfigService } from "../services/workshop-config.service"
-import { WorkshopDiscoveryService } from "../../workshop-discovery/services/workshop-discovery.service"
+import { WorkshopDiscoveryService } from "../../workshop-discovery"
 import { I18nService } from "../../shared/services/i18n.service"
-import  { WorkshopProfile, WorkshopSchedule, DaySchedule } from "../models"
-import  { Workshop } from "../../workshop-discovery/models"
+import type { WorkshopProfile, WorkshopSchedule, DaySchedule } from "../models"
+import type { Workshop } from "../../workshop-discovery"
+import { type Observable, of } from "rxjs"
 
 @Component({
   selector: "app-config",
@@ -70,7 +71,7 @@ export class ConfigPage implements OnInit {
   }
 
   profileForm!: FormGroup
-  availableServices: string[] = []
+  availableServices$: Observable<string[]> = of([]) // Cambié el nombre para indicar que es Observable
   newService = ""
   isSubmittingProfile = false
   isSubmittingSchedule = false
@@ -84,7 +85,7 @@ export class ConfigPage implements OnInit {
   }
 
   ngOnInit() {
-    this.availableServices = this.configService.getAvailableServices()
+    this.availableServices$ = this.configService.getAvailableServices()
     this.loadData()
   }
 
@@ -101,31 +102,42 @@ export class ConfigPage implements OnInit {
     console.log("ConfigPage: Loading data...")
 
     // Load profile data
-    this.configService.getProfile().subscribe((profile) => {
-      console.log("ConfigPage: Profile loaded", profile)
-      if (profile) {
-        this.profileData = { ...profile }
-        this.imagePreview = profile.imageUrl || "/assets/img/taller1.png"
-        this.profileForm.patchValue({
-          name: profile.name,
-          email: profile.email,
-          phone: profile.phone,
-          description: profile.description,
-        })
+    this.configService.getProfile().subscribe({
+      next: (profile) => {
+        console.log("ConfigPage: Profile loaded", profile)
+        if (profile) {
+          this.profileData = { ...profile }
+          this.imagePreview = profile.imageUrl || "/assets/img/taller1.png"
+          this.profileForm.patchValue({
+            name: profile.name,
+            email: profile.email,
+            phone: profile.phone,
+            description: profile.description,
+          })
 
-        // Check if profile is completed
-        this.profileCompleted = !!(profile.name && profile.email && profile.phone && profile.description)
-        console.log("ConfigPage: Profile completed?", this.profileCompleted)
+          // Check if profile is completed
+          this.profileCompleted = !!(profile.name && profile.email && profile.phone && profile.description)
+          console.log("ConfigPage: Profile completed?", this.profileCompleted)
+          this.isLoaded = true
+        }
+      },
+      error: (error) => {
+        console.error("ConfigPage: Error loading profile", error)
         this.isLoaded = true
-      }
+      },
     })
 
     // Load schedule data
-    this.configService.getSchedule().subscribe((schedule) => {
-      console.log("ConfigPage: Schedule loaded", schedule)
-      if (schedule && schedule.schedules) {
-        this.scheduleData = { ...schedule }
-      }
+    this.configService.getSchedule().subscribe({
+      next: (schedule) => {
+        console.log("ConfigPage: Schedule loaded", schedule)
+        if (schedule && schedule.schedules) {
+          this.scheduleData = { ...schedule }
+        }
+      },
+      error: (error) => {
+        console.error("ConfigPage: Error loading schedule", error)
+      },
     })
   }
 

@@ -21,6 +21,52 @@
       </div>
 
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <!-- Campo Username -->
+        <div class="form-group">
+          <input
+            type="text"
+            formControlName="username"
+            class="form-control"
+            placeholder="Nombre de usuario"
+            [ngClass]="{'is-invalid': registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)}"
+          >
+          <div *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)" class="error-message">
+            <span *ngIf="registerForm.get('username')?.hasError('required')">El nombre de usuario es requerido</span>
+            <span *ngIf="registerForm.get('username')?.hasError('minlength')">Mínimo 3 caracteres</span>
+          </div>
+        </div>
+
+        <!-- Campo Nombre -->
+        <div class="form-group">
+          <input
+            type="text"
+            formControlName="firstName"
+            class="form-control"
+            placeholder="Nombre"
+            [ngClass]="{'is-invalid': registerForm.get('firstName')?.invalid && (registerForm.get('firstName')?.dirty || registerForm.get('firstName')?.touched)}"
+          >
+          <div *ngIf="registerForm.get('firstName')?.invalid && (registerForm.get('firstName')?.dirty || registerForm.get('firstName')?.touched)" class="error-message">
+            <span *ngIf="registerForm.get('firstName')?.hasError('required')">El nombre es requerido</span>
+            <span *ngIf="registerForm.get('firstName')?.hasError('minlength')">Mínimo 2 caracteres</span>
+          </div>
+        </div>
+
+        <!-- Campo Apellido -->
+        <div class="form-group">
+          <input
+            type="text"
+            formControlName="lastName"
+            class="form-control"
+            placeholder="Apellido"
+            [ngClass]="{'is-invalid': registerForm.get('lastName')?.invalid && (registerForm.get('lastName')?.dirty || registerForm.get('lastName')?.touched)}"
+          >
+          <div *ngIf="registerForm.get('lastName')?.invalid && (registerForm.get('lastName')?.dirty || registerForm.get('lastName')?.touched)" class="error-message">
+            <span *ngIf="registerForm.get('lastName')?.hasError('required')">El apellido es requerido</span>
+            <span *ngIf="registerForm.get('lastName')?.hasError('minlength')">Mínimo 2 caracteres</span>
+          </div>
+        </div>
+
+        <!-- Campo Email -->
         <div class="form-group">
           <input
             type="email"
@@ -35,6 +81,7 @@
           </div>
         </div>
 
+        <!-- Campo Password -->
         <div class="form-group">
           <input
             type="password"
@@ -49,6 +96,7 @@
           </div>
         </div>
 
+        <!-- Campo Confirmar Password -->
         <div class="form-group">
           <input
             type="password"

@@ -121,7 +121,7 @@
                 <div class="predefined-services">
                   <p class="predefined-title">Servicios sugeridos:</p>
                   <div class="predefined-chips">
-                    <button *ngFor="let service of availableServices"
+                    <button *ngFor="let service of availableServices$ | async"
                             mat-stroked-button
                             type="button"
                             class="predefined-chip"

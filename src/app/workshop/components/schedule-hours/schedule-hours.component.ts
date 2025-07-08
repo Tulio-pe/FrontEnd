@@ -16,7 +16,23 @@ interface Day {
   workingAllDay: boolean;
 }
 
-@Component({  selector: 'app-schedule-hours',
+// Add interfaces for type safety
+interface ScheduleHours {
+  [key: string]: {
+    active: boolean;
+    allDay?: boolean;
+    hours?: Array<{start: string, end: string}>;
+  };
+}
+
+interface ScheduleResponse {
+  success: boolean;
+  message: string;
+  data?: any;
+}
+
+@Component({
+  selector: 'app-schedule-hours',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule],
   templateUrl: './schedule-hours.component.html',
@@ -42,6 +58,7 @@ export class ScheduleHoursComponent implements OnInit {
   ) {
     this.scheduleForm = this.formBuilder.group({});
   }
+
   ngOnInit(): void {
     // Initialize with default values for working days (Monday-Friday)
     this.days[0].enabled = true; // Monday
@@ -58,6 +75,7 @@ export class ScheduleHoursComponent implements OnInit {
   toggleAllDay(day: Day): void {
     day.workingAllDay = !day.workingAllDay;
   }
+
   onSubmit(): void {
     if (this.days.filter(day => day.enabled).length === 0) {
       alert('Por favor, selecciona al menos un día de atención');
@@ -66,8 +84,8 @@ export class ScheduleHoursComponent implements OnInit {
 
     this.isSubmitting = true;
 
-    // Prepare data to send to API
-    const scheduleData = this.days.reduce((obj, day) => {
+    // Prepare data to send to API with proper typing
+    const scheduleData: ScheduleHours = this.days.reduce((obj, day) => {
       if (day.enabled) {
         obj[day.name] = {
           active: true,
@@ -80,23 +98,22 @@ export class ScheduleHoursComponent implements OnInit {
         obj[day.name] = { active: false };
       }
       return obj;
-    }, {} as Record<string, any>);
+    }, {} as ScheduleHours);
 
     // Add this to local storage to simulate storing in the backend
     localStorage.setItem('workshopSchedule', JSON.stringify(scheduleData));
 
-    // Here you would call a service to save the schedule data
     console.log('Schedule data to save:', scheduleData);
 
-    // Simulate API call to auth service
+    // Call the auth service with proper type annotations
     this.authService.saveScheduleHours(scheduleData).subscribe({
-      next: (response) => {
+      next: (response: ScheduleResponse) => {
         console.log('Schedule saved successfully', response);
         this.isSubmitting = false;
         // Redirect to dashboard after successful save
         this.router.navigate(['/dashboard']);
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error saving schedule', error);
         this.isSubmitting = false;
         alert('Hubo un error al guardar el horario. Por favor, intenta de nuevo.');

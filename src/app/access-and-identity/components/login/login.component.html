@@ -13,6 +13,11 @@
       </div>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Mensaje de error general -->
+        <div *ngIf="errorMessage" class="error-message global-error">
+          {{ errorMessage }}
+        </div>
+
         <div class="form-group">
           <input
             type="email"
@@ -20,6 +25,7 @@
             class="form-control"
             [placeholder]="translate('login.email.placeholder')"
             [ngClass]="{'is-invalid': loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)}"
+            (input)="onInputChange()"
           >
           <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" class="error-message">
             <span *ngIf="loginForm.get('email')?.hasError('required')">{{ translate('login.email.required') }}</span>
@@ -34,6 +40,7 @@
             class="form-control"
             [placeholder]="translate('login.password.placeholder')"
             [ngClass]="{'is-invalid': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)}"
+            (input)="onInputChange()"
           >
           <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="error-message">
             <span *ngIf="loginForm.get('password')?.hasError('required')">{{ translate('login.password.required') }}</span>
@@ -45,29 +52,29 @@
           type="submit"
           class="login-btn"
           [disabled]="loginForm.invalid || isSubmitting">
+          <span *ngIf="isSubmitting" class="loading-spinner"></span>
           {{ isSubmitting ? translate('login.submitting') : translate('login.submit') }}
         </button>
 
         <button
           type="button"
           class="register-btn"
-          (click)="navigateToRegister()">
+          (click)="navigateToRegister()"
+          [disabled]="isSubmitting">
           {{ translate('login.create.account') }}
         </button>
 
         <button
           type="button"
           class="view-workshops-btn"
-          (click)="navigateToWorkshops()">
+          (click)="navigateToWorkshops()"
+          [disabled]="isSubmitting">
           {{ translate('login.view.workshops') }}
         </button>
 
         <div class="register-question">
-          {{ translate('login.no.account') }} <a href="javascript:void(0)" (click)="navigateToRegister()">{{ translate('login.register.link') }}</a>
-        </div>
-
-        <div *ngIf="errorMessage" class="error-message">
-          {{ errorMessage }}
+          {{ translate('login.no.account') }}
+          <a href="javascript:void(0)" (click)="navigateToRegister()">{{ translate('login.register.link') }}</a>
         </div>
       </form>
     </div>
@@ -78,6 +85,11 @@
     <p class="brand-description">
       {{ translate('login.brand.description') }}
     </p>
-    <button class="register-now-btn" (click)="navigateToRegister()">{{ translate('login.register.now') }}</button>
+    <button
+      class="register-now-btn"
+      (click)="navigateToRegister()"
+      [disabled]="isSubmitting">
+      {{ translate('login.register.now') }}
+    </button>
   </div>
 </div>

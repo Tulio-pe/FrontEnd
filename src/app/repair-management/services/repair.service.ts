@@ -1,112 +1,120 @@
 import { Injectable } from "@angular/core"
-import { BehaviorSubject, type Observable, of } from "rxjs"
-import { delay, map } from "rxjs/operators"
-import type { Repair, CreateRepairRequest, RepairStatus } from "../models"
+import { BehaviorSubject,  Observable } from "rxjs"
+import { tap, catchError } from "rxjs/operators"
+import  { HttpClient } from "@angular/common/http"
+import  { Repair, CreateRepairRequest, RepairStatus } from "../models"
+import { environment } from "../../../environment/environment"
 
 /**
  * Service for managing repair operations and status tracking.
- * Handles CRUD operations for repairs and provides real-time updates.
+ * Now connected to real backend API.
  */
 @Injectable({
   providedIn: "root",
 })
 export class RepairService {
-  // BehaviorSubject to provide real-time updates to components
-  private repairsSubject = new BehaviorSubject<Repair[]>([
-    {
-      id: "1",
-      plateNumber: "ABC-123",
-      vehicleInfo: {
-        brand: "Toyota",
-        model: "Corolla",
-        year: 2020,
-        color: "Blanco",
-      },
-      services: [
-        {
-          id: "1",
-          name: "Cambio aceite",
-          description: "Cambio completo de aceite y filtro",
-          estimatedTime: "30 min",
-          price: 80,
-          status: "pending",
-        },
-        {
-          id: "2",
-          name: "Transmisión",
-          description: "Revisión de transmisión",
-          estimatedTime: "2 horas",
-          price: 200,
-          status: "pending",
-        },
-        {
-          id: "3",
-          name: "Refrigeración",
-          description: "Mantenimiento del sistema de refrigeración",
-          estimatedTime: "1 hora",
-          price: 150,
-          status: "pending",
-        },
-      ],
-      status: "por-revisar",
-      createdAt: "2024-01-15T10:00:00Z",
-      updatedAt: "2024-01-15T10:00:00Z",
-    },
-  ])
-
+  private apiUrl = environment.apiUrl
+  private repairsSubject = new BehaviorSubject<Repair[]>([])
   public repairs$ = this.repairsSubject.asObservable()
+
+  constructor(private http: HttpClient) {
+    this.loadRepairs()
+  }
+
+  /**
+   * Loads all repairs from backend.
+   */
+  private loadRepairs(): void {
+    this.http.get<Repair[]>(`${this.apiUrl}/repairs`).subscribe({
+      next: (repairs) => this.repairsSubject.next(repairs),
+      error: (error) => {
+        console.error("Error loading repairs:", error)
+        // Mantener array vacío en caso de error
+        this.repairsSubject.next([])
+      },
+    })
+  }
 
   getRepairs(): Observable<Repair[]> {
     return this.repairs$
   }
 
   getRepairsByStatus(status: RepairStatus): Observable<Repair[]> {
-    return this.repairs$.pipe(map((repairs) => repairs.filter((repair) => repair.status === status)))
+    return this.http.get<Repair[]>(`${this.apiUrl}/repairs?status=${status}`).pipe(
+      catchError((error) => {
+        console.error("Error fetching repairs by status:", error)
+        throw error
+      }),
+    )
   }
 
   /**
-   * Creates a new repair order.
+   * Creates a new repair order in backend.
    */
   createRepair(request: CreateRepairRequest): Observable<Repair> {
-    const newRepair: Repair = {
-      id: Date.now().toString(),
-      plateNumber: request.plateNumber,
-      vehicleInfo: request.vehicleInfo,
-      services: request.services.map((serviceName, index) => ({
-        id: (index + 1).toString(),
-        name: serviceName,
-        description: `Servicio de ${serviceName}`,
-        estimatedTime: "1 hora",
-        price: 100,
-        status: "pending" as const,
-      })),
-      status: "por-revisar",
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    }
-
-    const currentRepairs = this.repairsSubject.value
-    this.repairsSubject.next([...currentRepairs, newRepair])
-
-    return of(newRepair).pipe(delay(500))
+    return this.http.post<Repair>(`${this.apiUrl}/repairs`, request).pipe(
+      tap((newRepair) => {
+        // Actualizar el BehaviorSubject con la nueva reparación
+        const currentRepairs = this.repairsSubject.value
+        this.repairsSubject.next([...currentRepairs, newRepair])
+      }),
+      catchError((error) => {
+        console.error("Error creating repair:", error)
+        throw error
+      }),
+    )
   }
 
   /**
-   * Updates repair status to next stage.
+   * Updates repair status in backend.
    */
   updateRepairStatus(repairId: string, status: RepairStatus): Observable<Repair> {
-    const currentRepairs = this.repairsSubject.value
-    const updatedRepairs = currentRepairs.map((repair) =>
-      repair.id === repairId ? { ...repair, status, updatedAt: new Date().toISOString() } : repair,
+    return this.http.put<Repair>(`${this.apiUrl}/repairs/${repairId}/status`, { status }).pipe(
+      tap((updatedRepair) => {
+        // Actualizar el BehaviorSubject
+        const currentRepairs = this.repairsSubject.value
+        const updatedRepairs = currentRepairs.map((repair) => (repair.id === repairId ? updatedRepair : repair))
+        this.repairsSubject.next(updatedRepairs)
+      }),
+      catchError((error) => {
+        console.error("Error updating repair status:", error)
+        throw error
+      }),
     )
+  }
 
-    this.repairsSubject.next(updatedRepairs)
+  /**
+   * Gets repair by ID from backend.
+   */
+  getRepairById(repairId: string): Observable<Repair> {
+    return this.http.get<Repair>(`${this.apiUrl}/repairs/${repairId}`).pipe(
+      catchError((error) => {
+        console.error("Error fetching repair by ID:", error)
+        throw error
+      }),
+    )
+  }
 
-    const updatedRepair = updatedRepairs.find((r) => r.id === repairId)!
-    return of(updatedRepair).pipe(delay(300))
+  /**
+   * Deletes a repair from backend.
+   */
+  deleteRepair(repairId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/repairs/${repairId}`).pipe(
+      tap(() => {
+        // Remover del BehaviorSubject
+        const currentRepairs = this.repairsSubject.value
+        const filteredRepairs = currentRepairs.filter((repair) => repair.id !== repairId)
+        this.repairsSubject.next(filteredRepairs)
+      }),
+      catchError((error) => {
+        console.error("Error deleting repair:", error)
+        throw error
+      }),
+    )
   }
 
   getAvailableServices(): string[] {
+    // Esto puede seguir siendo local o también venir del backend
     return [
       "Cambio aceite",
       "Transmisión",

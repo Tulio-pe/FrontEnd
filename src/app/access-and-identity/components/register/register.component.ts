@@ -1,16 +1,17 @@
-import { Component } from "@angular/core"
+import { Component, inject } from "@angular/core"
 import {
-   FormBuilder,
-   FormGroup,
+  FormBuilder,
+  type FormGroup,
   Validators,
   ReactiveFormsModule,
-   AbstractControl,
-   ValidationErrors,
+  type AbstractControl,
+  type ValidationErrors,
 } from "@angular/forms"
-import  { Router } from "@angular/router"
+import { Router } from "@angular/router"
 import { CommonModule } from "@angular/common"
 import { LanguageSwitcherComponent } from "../../../shared/components/language-switcher/language-switcher.component"
-import  { I18nService } from "../../../shared/services/i18n.service"
+import { I18nService } from "../../../shared/services/i18n.service"
+import { AuthService } from "../../services/auth.service"
 
 @Component({
   selector: "app-register",
@@ -20,17 +21,21 @@ import  { I18nService } from "../../../shared/services/i18n.service"
   styleUrls: ["./register.component.css"],
 })
 export class RegisterComponent {
+  private formBuilder = inject(FormBuilder)
+  private router = inject(Router)
+  private i18nService = inject(I18nService)
+  private authService = inject(AuthService)
+
   registerForm: FormGroup
   isSubmitting = false
   errorMessage: string | null = null
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private i18nService: I18nService,
-  ) {
+  constructor() {
     this.registerForm = this.formBuilder.group(
       {
+        username: ["", [Validators.required, Validators.minLength(3)]],
+        firstName: ["", [Validators.required, Validators.minLength(2)]],
+        lastName: ["", [Validators.required, Validators.minLength(2)]],
         email: ["", [Validators.required, Validators.email]],
         password: ["", [Validators.required, Validators.minLength(6)]],
         confirmPassword: ["", [Validators.required]],
@@ -58,26 +63,36 @@ export class RegisterComponent {
     this.isSubmitting = true
     this.errorMessage = null
 
-    const { email, password } = this.registerForm.value
+    const { username, firstName, lastName, email, password } = this.registerForm.value
 
-    // Simular registro exitoso y redirigir al login
-    setTimeout(() => {
-      this.isSubmitting = false
-      this.router.navigate(["/workshop/login"])
-    }, 1000)
+    console.log("🚀 Registrando usuario:", { username, firstName, lastName, email, password: "***" })
 
-    // Comentado para la demo
-    /*
-    this.authService.register({ email, password }).subscribe({
-      next: () => {
-        this.router.navigate(['/workshop/login']);
+    // Llamada real al backend con el formato correcto
+    this.authService.register({ username, firstName, lastName, email, password }).subscribe({
+      next: (response) => {
+        console.log("✅ Registro exitoso:", response)
+        this.isSubmitting = false
+
+        // Mostrar mensaje de éxito y redirigir al login usando la ruta correcta
+        alert("¡Registro exitoso! Ahora puedes iniciar sesión.")
+        this.router.navigate(["/workshop/login"])
       },
       error: (error) => {
-        this.isSubmitting = false;
-        this.errorMessage = error?.error?.message || this.translate('register.error.message');
-      }
-    });
-    */
+        console.error("❌ Error en registro:", error)
+        this.isSubmitting = false
+
+        // Manejar diferentes tipos de errores
+        if (error.status === 400) {
+          this.errorMessage = error.error?.message || this.translate("register.error.validation")
+        } else if (error.status === 409) {
+          this.errorMessage = this.translate("register.error.email.exists")
+        } else if (error.status === 0) {
+          this.errorMessage = this.translate("register.error.connection")
+        } else {
+          this.errorMessage = error.error?.message || this.translate("register.error.message")
+        }
+      },
+    })
   }
 
   navigateToLogin(): void {
